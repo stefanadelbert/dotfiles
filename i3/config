@@ -18,33 +18,36 @@ set $mod Mod4
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-#font pango:DejaVu Sans Mono 10
-font pango:Ubuntu Mono 9
+font pango:DejaVu Sans Mono 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Control+w kill
+bindsym $mod+Shift+q kill
+
+# Prevent the window focus from following the mouse
+focus_follows_mouse no
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec j4-dmenu-desktop --dmenu="dmenu.xft -i -fn Ubuntu"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-# you can use the cursor keys:
+bindsym $mod+l exec ~/scripts/lock
+
+# alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# you can use the cursor keys:
+# alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -74,7 +77,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-bindsym $mod+z focus child
+bindsym $mod+c focus child
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -88,6 +91,24 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+# Switch workspaces on current output
+bindsym control+Mod1+Left workspace prev_on_output
+bindsym control+Mod1+Right workspace next_on_output
+# Allow workspaces to be moved to different outputs
+bindsym control+$mod+Mod1+Right move workspace to output right
+bindsym control+$mod+Mod1+Left move workspace to output left
+bindsym control+$mod+Mod1+Up move workspace to output up
+bindsym control+$mod+Mod1+Down move workspace to output down
+# Switch outputs (relative)
+bindsym control+$mod+Left focus output left
+bindsym control+$mod+Right focus output right
+bindsym control+$mod+Up focus output up
+bindsym control+$mod+Down focus output down
+
+# Move windows (containers) to workspace on same output and switch to that workspace
+bindsym control+Mod1+Shift+Left move container to workspace prev_on_output; workspace prev_on_output;
+bindsym control+Mod1+Shift+Right move container to workspace next_on_output; workspace next_on_output;
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1; workspace 1
 bindsym $mod+Shift+2 move container to workspace 2; workspace 2
@@ -100,85 +121,59 @@ bindsym $mod+Shift+8 move container to workspace 8; workspace 8
 bindsym $mod+Shift+9 move container to workspace 9; workspace 9
 bindsym $mod+Shift+0 move container to workspace 10; workspace 10
 
-# move view to next/previous workspace
-bindsym Control+Mod1+Right workspace next
-bindsym Control+Mod1+Left workspace prev
-bindsym Control+Mod1+Shift+Right move window to workspace next; workspace next
-bindsym Control+Mod1+Shift+Left move window to workspace prev; workspace prev
-
-# lock the screen
-bindsym Control+Mod1+l exec i3lock -c 000000
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec ~/.i3/exit_menu.sh
+bindsym $mod+Shift+e exec i3-msg exit
+
+# Window border
+new_window 1pixel
+new_float 1pixel
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-    # These bindings trigger as soon as you enter the resize mode
+        # These bindings trigger as soon as you enter the resize mode
 
-    # Pressing left will shrink the window’s width.
-    # Pressing right will grow the window’s width.
-    # Pressing up will shrink the window’s height.
-    # Pressing down will grow the window’s height.
-    bindsym j resize shrink width 10 px or 10 ppt
-    bindsym k resize grow height 10 px or 10 ppt
-    bindsym l resize shrink height 10 px or 10 ppt
-    bindsym semicolon resize grow width 10 px or 10 ppt
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
 
-    # same bindings, but for the arrow keys
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
 
-    # back to normal: Enter or Escape
-    bindsym Escape mode "default"
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
-# window mode
-mode "window" {
-    bindsym Left focus left
-    bindsym Down focus down
-    bindsym Up focus up
-    bindsym Right focus right
-
-    bindsym Shift+Left move left
-    bindsym Shift+Down move down
-    bindsym Shift+Up move up
-    bindsym Shift+Right move right
-
-    # move view to next/previous workspace
-    bindsym Control+Mod1+Right workspace next
-    bindsym Control+Mod1+Left workspace prev
-    bindsym Control+Mod1+Shift+Right move window to workspace next; workspace next
-    bindsym Control+Mod1+Shift+Left move window to workspace prev; workspace prev
-
-    bindsym Control+w kill
-
-    # back to normal: Enter or Escape
-    bindsym Escape mode "default"
-}
-
-bindsym $mod+x mode "window"
-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        font pango:Ubuntu Mono 10
-        status_command i3status
+    status_command i3status
+    mode hide
+    modifier $mod
+    font pango:Ubuntu Regular 10
 }
 
-# Specific applications
-bindsym $mod+b exec ~/.i3/webbrowser.sh
+#Colours
+# class          border  backgr. text    indicator
+client.focused   #ffffff #999999 #222222 #2e9ef4
+client.unfocused #ffffff #222222 #222222 #2e9ef4
 
-new_window 1pixel
-
+exec xautolock -time 15 -locker ~/scripts/lock
+exec unity-settings-daemon
 exec unclutter
-exec nm-applet
-exec gnome-sound-applet
+exec ~/.fehbg
+

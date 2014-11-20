@@ -1,1 +1,12 @@
-compiler nose
+set nu
+
+setlocal tabstop=4
+setlocal softtabstop=4
+setlocal shiftwidth=4
+setlocal smarttab
+setlocal expandtab
+setlocal nowrap
+
+setlocal colorcolumn=80
+setlocal cursorline
+setlocal cursorcolumn

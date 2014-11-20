@@ -1,79 +1,128 @@
-﻿set nocompatible
-filetype off
+set nocompatible " be iMproved, required
+filetype off " required
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'mileszs/ack.vim'
-Bundle 'chriskempson/base16-vim'
-Bundle 'lambdalisue/nose.vim'
+Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
 
-filetype plugin indent on
+Plugin 'mileszs/ack.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'bling/vim-airline'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'kana/vim-scratch'
+Plugin 'oplatek/Conque-Shell'
 
-colorscheme desert
-set background=dark
+call vundle#end() " required
+filetype plugin indent on " required
 
-set encoding=utf-8
-set showmode
-set showcmd
-set hidden
-set ttyfast
-set laststatus=2
-set history=1000
-set undofile
-set undoreload=10000
-set listchars=tab:᚛\·,eol:¬,extends:»,precedes:«
-set showbreak=‣
-set splitbelow
-set splitright
-set fillchars=diff:⣿,vert:│
-set title
-set backupskip=/tmp/*,/private/tmp/*"
-set cursorline
-set cursorcolumn
-
-set tabstop=4
-set shiftwidth=4
-set hlsearch
-set incsearch
-set expandtab
+set t_Co=256
+color xoria256
 
 syntax on
 
-" Filetype settings
-au BufRead,BufNewFile makefile.rules set filetype=make
-au BufRead,BufNewFile *.qml set filetype=qml
+set hlsearch
+set tabstop=4
+set shiftwidth=4
+set noexpandtab
+set backspace=2
 
-" Buffer navigation
-nmap <C-Left> <C-w><Left>
-nmap <C-Right> <C-w><Right>
-nmap <C-Up> <C-w><Up>
-nmap <C-Down> <C-w><Down>
+set ignorecase
+set smartcase
+set incsearch
 
-" History navigation
-nmap <M-Left> <C-o>
-nmap <M-Right> <C-i>
+set nobackup
+set nowritebackup
+set noswapfile
 
-" NERDTree settings
-let g:NERDTreeDirArrows=0
-let g:NERDTreeChDirMode=2
-nmap <leader>nf :NERDTreeFind<CR>
-map  <F9> :NERDTreeToggle<CR>
+set wildmenu
 
-" Unique sort of lines in a paragraph - useful for sorting include directives
-nmap <leader>su Vip:sort u<CR>
+" Setup custom filetype
+au BufNewFile,BufRead *.analysis set filetype=analysis
+au BufNewFile,BufRead *.config set filetype=config
+au BufNewFile,BufRead *.xml set filetype=xml
+au BufNewFile,BufRead *.msc set filetype=msc syntax=xmath
 
-nmap <leader>ev :tabedit $MYVIMRC<CR>
+" Airline configuration
+set laststatus=2
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 
-" Quickfix
-nmap <leader>me :copen 20<CR>
-nmap <leader>mw :cclose<CR>
+" UltiSnips configuration
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
+
+" vim-scratch settings
+let g:scratch_show_command="botright vsplit | hide buffer"
+nnoremap <F12> :ScratchOpen<CR>
+nnoremap <C-F12> :ScratchClose<CR>
+
+" Conque-Shell
+nnoremap <S-F12> :ConqueTermTab bash<CR>
+
+" Mapping for forcing a redraw.
+nnoremap <leader>r :redraw!<CR>
+
+" Quickfix mappings.
 nmap <F7> :cprevious<CR>
 nmap <F8> :cnext<CR>
+nmap <F10> :botright copen<CR>
+nmap <C-F10> :cclose<CR>
 
-" CtrlP: Fuzzy file finding
-nmap <leader>ff :CtrlP<CR>
-nmap <leader>fb :CtrlPBuffer<CR>
+" Toggle NERDTree on the F9 key
+noremap <F9> :NERDTreeToggle<CR>
+nmap <silent> <leader>st :NERDTreeFind<CR>
+let NERDTreeDirArrows=0
+let NERDTreeWinSize=50
+
+nmap <leader>ev :tabedit ~/.vim/ftplugin<CR>:vsplit $MYVIMRC<CR>
+
+" Toggle list
+nmap <leader>sl :set invlist<CR>
+" Toggle scrollbind
+nmap <leader>sb :set scrollbind!<CR>: set scrollbind?<CR>
+
+" CtrlP settings
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:30'
+" CltrP for files below the current working directory
+nmap <silent> <leader>ff :let g:ctrlp_default_input=''<CR>:CtrlP<CR>
+" CtrlP for all open buffers
+nmap <silent> <leader>fb :let g:ctrlp_default_input=''<CR>:CtrlPBuffer<CR>
+" CtrlP in directory mode
+nmap <silent> <leader>fd :let g:ctrlp_default_input=''<CR>:CtrlPDir<CR>
+" CtrlP in MRU mode
+nmap <silent> <leader>fm :let g:ctrlp_default_input=''<CR>:CtrlPMRUFile<CR>
+" CtrlP using the word under the cursor
+nmap <silent> <leader>fg :let g:ctrlp_default_input=expand('<cword>')<CR>:CtrlP<CR>
+
+" Ack for file under cursor
+nmap <silent> <leader>ag :Ack! <cword><CR>
+" Ack for last search term
+nmap <silent> <leader>ah :Ack! histget("search")<CR>
+" Ack for user input
+nmap <silent> <leader>af :Ack! 
+" Ack for file under cursor in cpp files
+nmap <silent> <leader>agc :Ack! --cpp <cword><CR>
+" Ack for last search term in cpp files
+nmap <silent> <leader>ahc :Ack! --cpp histget("search")<CR>
+" Ack for user input in cpp
+nmap <silent> <leader>afc :Ack! --cpp 
+
+" Convenient shortcuts for navigating between windows
+nmap <C-Left> <C-W><Left>
+nmap <C-Right> <C-W><Right>
+nmap <C-Up> <C-W><Up>
+nmap <C-Down> <C-W><Down>
+nmap <C-S-Left> <C-W>R
+nmap <C-S-Right> <C-W>r
+
+" Delete whitespace at the end of all lines in the current buffer.
+nmap <leader>dw :%s/\v\s+$<CR>
