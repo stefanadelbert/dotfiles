@@ -1,0 +1,117 @@
+snippet if "If"
+if (${1}) {
+	${0}
+}
+endsnippet
+
+snippet ld "Debug log message"
+LogDebug() << ${0};
+endsnippet
+
+snippet li "Info log message"
+LogInfo() << ${0};
+endsnippet
+
+snippet lw "Warning log message"
+LogWarning() << ${0};
+endsnippet
+
+snippet le "Error log message"
+LogError() << ${0};
+endsnippet
+
+snippet strict "Start strict sequence (testing)"
+StartStrictSequence("${1}");
+	${0}${VISUAL}
+EndSequence();
+endsnippet
+
+snippet arb "Start arbitrary sequence (testing)"
+StartArbitrarySequence("${1}");
+	${0}${VISUAL}
+EndSequence();
+endsnippet
+
+snippet targets "Start targets"
+StartTargets(${1:TARGET_MOTIVE_TRADING});
+	${0}${VISUAL}
+EndTargets($1);
+endsnippet
+
+snippet get "Getter from member"
+`!p
+try:
+	m = re.search(r'(\w+)\s+(\w+)', snip.v.text)
+	type=m.group(1)
+	member=m.group(2)
+except:
+	snip.rv = snip.v.text`
+${VISUAL}
+const `!p snip.rv=type`& `!p snip.rv=member[0].upper() + member[1:]`() const {
+	return `!p snip.rv=member`;
+}
+endsnippet
+
+snippet nse "Namespace Epoch"
+namespace Epoch
+{
+
+${0}
+
+}
+endsnippet
+
+snippet cl "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`}
+{
+public:
+	${1/(\w+).*/$1/}(${2:arguments});
+	virtual ~${1/(\w+).*/$1/}();
+
+private:
+	${0:/* data */}
+};
+endsnippet
+
+snippet once "Include header once only guard"
+#ifndef ${1:`!p
+if not snip.c:
+	import string
+	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
+	snip.rv = ('%s' % (name)).upper()
+else:
+	snip.rv = snip.c`}
+#define $1
+
+${VISUAL}${0}
+
+#endif // $1
+endsnippet
+
+snippet mfun
+${4:void}
+${1:`!p snip.rv = snip.basename or "ClassName"`}::${2:MemberFunction}(${3})${5}
+{
+	${0}
+}
+endsnippet
+
+snippet mfund
+${4:void} ${1:`!p snip.rv = snip.basename or "ClassName"`}::${2:MemberFunction}(${3})${5};
+endsnippet
+
+snippet ea "EpochAssert" b
+EpochAssert($1);
+endsnippet
+
+snippet eam "EpochAssertMsg" b
+EpochAssertMsg($1, "${2:Message}");
+endsnippet
+
+snippet ef "EpochFail" b
+EpochFail();
+endsnippet
+
+snippet efm "EpochFailMsg" b
+EpochFailMsg("${1:Message}");
+endsnippet
