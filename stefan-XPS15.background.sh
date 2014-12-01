@@ -1,0 +1,3 @@
+echo "Setting background"
+
+~/.fehbg
