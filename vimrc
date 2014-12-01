@@ -7,7 +7,7 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
 
-Plugin 'mileszs/ack.vim'
+Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
@@ -41,10 +41,10 @@ set noswapfile
 set wildmenu
 
 " Setup custom filetype
-au BufNewFile,BufRead *.analysis set filetype=analysis
-au BufNewFile,BufRead *.config set filetype=config
-au BufNewFile,BufRead *.xml set filetype=xml
-au BufNewFile,BufRead *.msc set filetype=msc syntax=xmath
+autocmd BufNewFile,BufRead *.analysis set filetype=analysis
+autocmd BufNewFile,BufRead *.config set filetype=config
+autocmd BufNewFile,BufRead *.xml set filetype=xml
+autocmd BufNewFile,BufRead *.msc set filetype=msc syntax=xmath
 
 " Airline configuration
 set laststatus=2
@@ -103,18 +103,18 @@ nmap <silent> <leader>fm :let g:ctrlp_default_input=''<CR>:CtrlPMRUFile<CR>
 " CtrlP using the word under the cursor
 nmap <silent> <leader>fg :let g:ctrlp_default_input=expand('<cword>')<CR>:CtrlP<CR>
 
-" Ack for file under cursor
-nmap <silent> <leader>ag :Ack! <cword><CR>
-" Ack for last search term
-nmap <silent> <leader>ah :Ack! histget("search")<CR>
-" Ack for user input
-nmap <silent> <leader>af :Ack! 
-" Ack for file under cursor in cpp files
-nmap <silent> <leader>agc :Ack! --cpp <cword><CR>
-" Ack for last search term in cpp files
-nmap <silent> <leader>ahc :Ack! --cpp histget("search")<CR>
-" Ack for user input in cpp
-nmap <silent> <leader>afc :Ack! --cpp 
+" Ag for file under cursor
+nmap <silent> <leader>ag :Ag! <cword><CR>
+" Ag for last search term
+nmap <silent> <leader>ah :Ag! histget("search")<CR>
+" Ag for user input
+nmap <silent> <leader>af :Ag! 
+" Ag for file under cursor in cpp files
+nmap <silent> <leader>agc :Ag! --cpp <cword><CR>
+" Ag for last search term in cpp files
+nmap <silent> <leader>ahc :Ag! --cpp histget("search")<CR>
+" Ag for user input in cpp
+nmap <silent> <leader>afc :Ag! --cpp 
 
 " Convenient shortcuts for navigating between windows
 nmap <C-Left> <C-W><Left>
