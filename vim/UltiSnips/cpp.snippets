@@ -88,19 +88,8 @@ snippet once "Insert pragma once"
 ${VISUAL}${0}
 endsnippet
 
-snippet guard "Include header once only guard"
-#ifndef ${1:`!p
-if not snip.c:
-	import string
-	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
-	snip.rv = ('%s' % (name)).upper()
-else:
-	snip.rv = snip.c`}
-#define $1
-
-${VISUAL}${0}
-
-#endif // $1
+snippet mfund
+${4:void} ${1:`!p snip.rv = snip.basename or "ClassName"`}::${2:MemberFunction}(${3})${5};
 endsnippet
 
 snippet mfun
@@ -111,8 +100,11 @@ ${1:`!p snip.rv = snip.basename or "ClassName"`}::${2:MemberFunction}(${3})${5}
 }
 endsnippet
 
-snippet mfund
-${4:void} ${1:`!p snip.rv = snip.basename or "ClassName"`}::${2:MemberFunction}(${3})${5};
+snippet TEST "gtest test case" b
+TEST(${1:`!p snip.rv = snip.basename or "TestSuiteName"`}, ${2:TestCaseName})
+{
+	${0}
+}
 endsnippet
 
 snippet ea "EpochAssert" b
