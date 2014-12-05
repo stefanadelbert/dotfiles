@@ -2,10 +2,17 @@
 
 set -e
 
+FILES_CONFIG=files.config
+
+if [[ ! -e ${FILES_CONFIG} ]]; then
+	echo "Coulnd't file required configuration file ${FILES_CONFIG}"
+	exit 1
+fi
+
 ROOT=$HOME
 DOTFILE_DIR=${ROOT}/dotfiles # dotfiles directory
 OLD_DOTFILE_DIR=${ROOT}/dotfiles.old # old dotfiles backup directory
-FILES="bashrc bashrc_alias vimrc vim i3 i3status.conf" # list of files/folders to symlink in homedir
+FILES=$(cat files.config)
 
 # Run the below in a subshell so that the absolute directory changes
 # don't affect the current directory of the context of where this script
@@ -31,6 +38,10 @@ cd $dir
 # then create symlinks 
 for file in ${FILES}
 do
+    if [[ -z ${file} ]]; then
+        continue
+    fi
+
     OLD_FILE=${ROOT}/.${file}
     if [[ -e ${OLD_FILE} || -h ${OLD_FILE} ]]
     then
