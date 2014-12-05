@@ -5,7 +5,7 @@ set -e
 ROOT=$HOME
 DOTFILE_DIR=${ROOT}/dotfiles # dotfiles directory
 OLD_DOTFILE_DIR=${ROOT}/dotfiles.old # old dotfiles backup directory
-FILES="bashrc vimrc vim i3 i3status.conf" # list of files/folders to symlink in homedir
+FILES="bashrc bashrc_alias vimrc vim i3 i3status.conf" # list of files/folders to symlink in homedir
 
 # Run the below in a subshell so that the absolute directory changes
 # don't affect the current directory of the context of where this script
@@ -38,6 +38,13 @@ do
         mv ${ROOT}/.${file} ${OLD_DOTFILE_DIR}/${file}
     fi
     echo "Creating symlink to ${file} in ${ROOT}"
-    ln -s ${DOTFILE_DIR}/${file} ~/.${file}
+	if [[ -e ${DOTFILE_DIR}/${HOSTNAME}.${file} ]]; then
+		# Check for a host specific version of the file and use
+		# it if it exists.
+		ln -s ${DOTFILE_DIR}/${HOSTNAME}.${file} ~/.${file}
+	else
+		# No host specific file exists, so use the generic one.
+		ln -s ${DOTFILE_DIR}/${file} ~/.${file}
+	fi
 done
 )

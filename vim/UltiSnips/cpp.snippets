@@ -61,6 +61,15 @@ ${0}
 }
 endsnippet
 
+snippet nsec "Namespace ec"
+namespace ec { namespace ${1:namespace} {
+
+${VISUAL}${0}
+
+} // $1
+} // ec
+endsnippet
+
 snippet cl "class .. (class)"
 class ${1:`!p snip.rv = snip.basename or "name"`}
 {
@@ -69,11 +78,17 @@ public:
 	virtual ~${1/(\w+).*/$1/}();
 
 private:
-	${0:/* data */}
+	${0:// data}
 };
 endsnippet
 
-snippet once "Include header once only guard"
+snippet once "Insert pragma once"
+#pragma once
+
+${VISUAL}${0}
+endsnippet
+
+snippet guard "Include header once only guard"
 #ifndef ${1:`!p
 if not snip.c:
 	import string

@@ -16,7 +16,7 @@ nmap <leader>su vip:sort u<CR>
 vmap <leader>su :sort u<CR>
 
 " Set makeprg to use build in the chroot
-let g:buildcmd='schroot -c susedevel.reliable -- make'
+let g:buildcmd='schroot -c susedevel.new -- make'
 
 " This function will build the provided target using a build command
 " and populate the quickfix window with the build output.
