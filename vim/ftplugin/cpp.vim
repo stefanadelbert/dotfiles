@@ -16,19 +16,19 @@ nmap <leader>su vip:sort u<CR>
 vmap <leader>su :sort u<CR>
 
 " Set makeprg to use build in the chroot
-let g:buildcmd='schroot -c susedevel.new -- make'
+let g:buildcmd='schroot -c susedevel -- make'
 
 " This function will build the provided target using a build command
 " and populate the quickfix window with the build output.
 " Call this function with a target and optional options.
 " This funcitons relies on g:buildcmd to be set.
-" This function relies on ~/scripts/asap.makeargs.py existing.
+" This function relies on ~/.scripts/asap.makeargs.py existing.
 function! Make(target, options)
 	" See http://github.com/vshih/vim-make for the basis of this function.
 
 	" Compile arguments.
 	let l:options = strlen(a:options) ? ' ' . a:options : ''
-	let l:target = ' ' . system('python ~/scripts/asap.makeargs.py ' . a:target)
+	let l:target = ' ' . system('python ~/.scripts/asap.makeargs.py ' . a:target)
 	let l:title = 'Building: ' . l:options . l:target
 
 	botright copen

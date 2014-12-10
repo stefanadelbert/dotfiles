@@ -1,0 +1,32 @@
+#!/bin/bash
+
+CONFIG_FILE="${HOME}/Documents/rdp.txt"
+if [[ ! -f ${CONFIG_FILE} ]]
+then
+	echo Couldn''t find config file ${CONFIG_FILE}
+	exit 1
+fi
+echo Using config file ${CONFIG_FILE}
+
+# Use some means of determining the session, e.g. dmenu.
+DMENU='dmenu.xft -fn Ubuntu -l 5 -p "rdesktop>"'
+SESSION=$(awk -F, '{print $4}' ${CONFIG_FILE} | ${DMENU})
+if [[ -z ${SESSION} ]]
+then
+	echo No session chosen
+	exit 0
+fi
+echo Chosen session is ${SESSION}
+
+# Given the session determined above, get the details for that
+# session and extract the relevant information.
+DETAILS=$(grep "${SESSION}" "${CONFIG_FILE}")
+echo Using details ${DETAILS}
+HOSTNAME=$(echo ${DETAILS} | awk -F, '{print $1}')
+USERNAME=$(echo ${DETAILS} | awk -F, '{print $2}')
+PASSWORD=$(echo ${DETAILS} | awk -F, '{print $3}')
+
+# Build the command and execute it, using eval.
+CMD="rdesktop -g 75% -u ${USERNAME} -p '${PASSWORD}' ${HOSTNAME}"
+echo Using command: ${CMD}
+eval ${CMD}

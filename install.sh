@@ -2,7 +2,7 @@
 
 set -e
 
-FILES_CONFIG=files.config
+FILES_CONFIG=files.conf
 
 if [[ ! -e ${FILES_CONFIG} ]]; then
 	echo "Coulnd't file required configuration file ${FILES_CONFIG}"
@@ -12,7 +12,7 @@ fi
 ROOT=$HOME
 DOTFILE_DIR=${ROOT}/dotfiles # dotfiles directory
 OLD_DOTFILE_DIR=${ROOT}/dotfiles.old # old dotfiles backup directory
-FILES=$(cat files.config)
+FILES=$(cat ${FILES_CONFIG})
 
 # Run the below in a subshell so that the absolute directory changes
 # don't affect the current directory of the context of where this script
