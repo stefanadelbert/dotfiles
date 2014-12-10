@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# vim: set filetype=sh:
+
+usage()
+{
+cat << EOF
+USAGE:
+        $(basename $0) <source> [<destination>]
+
+DESCRIPTION:
+    Bazaar lightweight checkout assuming hardcoded username (stefan.adelbert)
+EOF
+}
+
+usage_error()
+{
+    usage
+    exit 1
+}
+
+# Require at least one parameter, the command name
+if [[ $# -eq 0 ]]
+then
+    usage_error
+fi
+
+USERNAME=stefan.adelbert
+PROTOCOL="bzr+ssh"
+SERVER=bazaar
+SOURCE=$1
+DESTINTATION=
+
+if [[ $# -eq 2 ]]
+then
+	# If there is a second parameter, use it as the destination.
+	DESTINATION=$2
+else
+	# If there is no second parameter, then use the last element of the first parameter.
+	DESTINATION=$(basename ${SOURCE})
+fi
+
+FULL_SOURCE="${PROTOCOL}://${USERNAME}@${SERVER}/srv/bzr/${SOURCE}"
+
+# Run the Bazaar command.
+bzr checkout --lightweight ${FULL_SOURCE} ${DESTINATION}
+
+exit 0
