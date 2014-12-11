@@ -2,6 +2,7 @@ dotfiles
 ========
 
 My personal dotfiles for (amongst other things):
+* bash
 * vim
 * i3
 
