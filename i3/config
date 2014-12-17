@@ -39,7 +39,7 @@ bindsym $mod+d exec j4-dmenu-desktop --dmenu="dmenu.xft -i -fn Ubuntu"
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym $mod+l exec ~/scripts/lock
+bindsym $mod+l exec ~/.scripts/lock
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -185,7 +185,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym XF86Sleep exec i3-msg exit
 
-exec xautolock -time 15 -locker ~/scripts/lock
+exec xautolock -time 15 -locker ~/.scripts/lock
 exec unity-settings-daemon
 exec unclutter
 exec ~/.fehbg
