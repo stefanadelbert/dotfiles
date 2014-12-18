@@ -1,1 +1,3 @@
 alias vim='TERM=xterm-256color vim'
+
+alias agc='ag --cpp'
