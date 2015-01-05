@@ -185,7 +185,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym XF86Sleep exec i3-msg exit
 
-exec xautolock -time 15 -locker ~/.scripts/lock
+exec xautolock -time 180 -locker ~/.scripts/lock
 exec unity-settings-daemon
 exec unclutter
 exec ~/.fehbg
