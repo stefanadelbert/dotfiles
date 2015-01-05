@@ -10,6 +10,7 @@ Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
