@@ -5,19 +5,19 @@ if (${1}) {
 endsnippet
 
 snippet ld "Debug log message"
-LogDebug() << ${0};
+LOG_DEBUG(${1:*loggerShp}, "${1:`!p snip.rv = snip.basename or "ClassName"`}::" << EC_FUNC << "${0}");
 endsnippet
 
 snippet li "Info log message"
-LogInfo() << ${0};
+LOG_INFO(${1:*loggerShp}, "${1:`!p snip.rv = snip.basename or "ClassName"`}::" << EC_FUNC << "${0}");
 endsnippet
 
 snippet lw "Warning log message"
-LogWarning() << ${0};
+LOG_WARNING(${1:*loggerShp}, "${1:`!p snip.rv = snip.basename or "ClassName"`}::" << EC_FUNC << "${0}");
 endsnippet
 
 snippet le "Error log message"
-LogError() << ${0};
+LOG_ERROR(${1:*loggerShp}, "${1:`!p snip.rv = snip.basename or "ClassName"`}::" << EC_FUNC << "${0}");
 endsnippet
 
 snippet strict "Start strict sequence (testing)"
@@ -71,11 +71,19 @@ snippet cl "class .. (class)"
 class ${1:`!p snip.rv = snip.basename or "name"`}
 {
 public:
-	${1/(\w+).*/$1/}(${2:arguments});
+	${1/(\w+).*/$1/}(${2});
 	virtual ~${1/(\w+).*/$1/}();
 
 private:
-	${0:// data}
+	${0}
+};
+endsnippet
+
+snippet cls "Class (simple)" b
+class ${1:`!p snip.rv = snip.basename or "name"`}
+{
+public:
+	${1/(\w+).*/$1/}(${2});
 };
 endsnippet
 
@@ -109,22 +117,6 @@ TEST_F(${1:`!p snip.rv = snip.basename or "TestSuiteName"`}, ${2:TestCaseName})
 {
 	${0}
 }
-endsnippet
-
-snippet ea "EpochAssert" b
-EpochAssert($1);
-endsnippet
-
-snippet eam "EpochAssertMsg" b
-EpochAssertMsg($1, "${2:Message}");
-endsnippet
-
-snippet ef "EpochFail" b
-EpochFail();
-endsnippet
-
-snippet efm "EpochFailMsg" b
-EpochFailMsg("${1:Message}");
 endsnippet
 
 snippet dox "Doxygen comment" b
