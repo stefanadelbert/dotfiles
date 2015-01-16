@@ -71,8 +71,8 @@ nnoremap <S-F12> :ConqueTermTab bash<CR>
 nnoremap <leader>r :redraw!<CR>
 
 " Quickfix mappings.
-nmap <F7> :cprevious<CR>
-nmap <F8> :cnext<CR>
+nnoremap <F7> :cprevious<CR>
+nnoremap <F8> :cnext<CR>
 nmap <F10> :botright copen<CR>
 nmap <C-F10> :cclose<CR>
 
