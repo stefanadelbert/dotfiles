@@ -52,13 +52,10 @@ const `!p snip.rv=type`& `!p snip.rv=member[0].upper() + member[1:]`() const {
 }
 endsnippet
 
-snippet nse "Namespace Epoch"
-namespace Epoch
-{
-
-${0}
-
-}
+snippet ns "Namespace" b
+namespace ${1:namespace}{
+${VISUAL}${0}
+} // $1
 endsnippet
 
 snippet nsec "Namespace ec"
@@ -128,4 +125,10 @@ endsnippet
 
 snippet efm "EpochFailMsg" b
 EpochFailMsg("${1:Message}");
+endsnippet
+
+snippet dox "Doxygen comment" b
+/**
+	@brief ${0}
+*/
 endsnippet
