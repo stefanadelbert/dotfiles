@@ -88,6 +88,8 @@ nmap <leader>ev :tabedit ~/.vim/ftplugin<CR>:vsplit $MYVIMRC<CR>
 nmap <leader>sl :set invlist<CR>
 " Toggle scrollbind
 nmap <leader>sb :set scrollbind!<CR>: set scrollbind?<CR>
+" Toggle wrap
+nmap <leader>sw :set wrap!<CR>: set wrap?<CR>
 
 " CtrlP settings
 let g:ctrlp_max_files=0
