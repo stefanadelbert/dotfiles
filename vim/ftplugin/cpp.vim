@@ -12,7 +12,9 @@ nmap <leader>o :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " Include a file based on the word under the cursor
 nmap <leader>i :call InsertInclude(expand("<cword>") . ".h")<CR>
 
+" Do a unique sort on the inner paragraph
 nmap <leader>su vip:sort u<CR>
+" Do a unique sort on the selection
 vmap <leader>su :sort u<CR>
 
 " Set makeprg to use build in the chroot

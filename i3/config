@@ -164,7 +164,8 @@ bar {
     status_command i3status
     mode hide
     modifier $mod
-    font pango:Ubuntu Regular 14
+    font pango:Ubuntu Regular 24
+	workspace_buttons yes
 }
 
 #Colours
@@ -173,8 +174,9 @@ client.focused   #ffffff #999999 #222222 #2e9ef4
 client.unfocused #ffffff #222222 #222222 #2e9ef4
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -- -5% #decrease sound volume
+# Reversed the bindings so that pushing the keyboard volume dial away increases thew volume
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 -- -5% #decrease sound volume
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
 
 # Media player controls
@@ -188,5 +190,7 @@ bindsym XF86Sleep exec i3-msg exit
 exec xautolock -time 180 -locker ~/.scripts/lock
 exec unity-settings-daemon
 exec unclutter
+exec autocutsel
+exec autocutsel -s PRIMARY
 exec ~/.fehbg
 

@@ -1,0 +1,6 @@
+%title Personal Wiki
+%toc Table of Contents
+
+= [[diary/diary|Diary]] =
+= [[Technical]] =
+= [[PhoneCalls|Phone Calls]] =

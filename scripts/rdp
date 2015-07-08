@@ -1,6 +1,8 @@
 #!/bin/bash
 
-CONFIG_FILE="${HOME}/Documents/rdp.txt"
+#Format of lines in the config file are
+#    <ip>,<username>,<password>,<description>
+CONFIG_FILE="${HOME}/dotfiles/rdp.txt"
 if [[ ! -f ${CONFIG_FILE} ]]
 then
 	echo Couldn''t find config file ${CONFIG_FILE}

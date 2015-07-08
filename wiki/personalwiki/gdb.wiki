@@ -1,0 +1,41 @@
+%title gdb
+
+%toc
+
+= Remote Debugging on Linux =
+It’s possible to remote debug a program running in a chroot using _gdb_ or even _Qtcreator_ as the gdb frontend.
+From inside the chroot, run
+{{{
+gdbserver --once localhost:9000 <executable>
+}}}
+Then from outside the chroot, run (from a relevant location)
+{{{
+qtcreator -debug <executable>,server=localhost:9000
+}}}
+It’s convenient to run qtcreator from a location that makes the source code easily accessible for setting breakpoints.
+It’s probably a good idea to set the Qtcreator debug client to break in main(), which can be done from the `Debug | Attach to remote debugger` dialog box.
+
+= Loading Shared Libraries =
+When using qtcreator as a gdb remote client, and the target is loading shared libraries on the fly, then it’s necessary to give the gdb client some information about the shared libraries so that debug symbols can be loaded. Set solib-search-path, for example
+{{{
+set solib-search-path “./shlib”
+}}}
+To force shared libraries to be loaded, use
+{{{
+sharedlibrary
+}}}
+To see all the shared libraries that have been loaded, use
+{{{
+info sharedlibrary
+}}}
+To see all sources files that have been loaded, use
+{{{
+info sources
+}}}
+
+= Processing Cores =
+Specify the path to the core as the `-c` argument and then the name of the executable.
+
+{{{
+gdb -c <core> <executable>
+}}}

@@ -15,7 +15,8 @@ Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'kana/vim-scratch'
-Plugin 'oplatek/Conque-Shell'
+Plugin 'vimwiki/vimwiki'
+Plugin 'vim-scripts/utl.vim'
 
 call vundle#end() " required
 filetype plugin indent on " required
@@ -87,9 +88,11 @@ nmap <leader>ev :tabedit ~/.vim/ftplugin<CR>:vsplit $MYVIMRC<CR>
 " Toggle list
 nmap <leader>sl :set invlist<CR>
 " Toggle scrollbind
-nmap <leader>sb :set scrollbind!<CR>: set scrollbind?<CR>
+nmap <leader>sb :set scrollbind!<CR>:set scrollbind?<CR>
 " Toggle wrap
-nmap <leader>sw :set wrap!<CR>: set wrap?<CR>
+nmap <leader>sw :set wrap!<CR>:set wrap?<CR>
+" Toggle line numbers
+nmap <leader>sn :set nu!<CR>:set nu?
 
 " CtrlP settings
 let g:ctrlp_max_files=0
@@ -129,3 +132,8 @@ nmap <C-S-Right> <C-W>r
 
 " Delete whitespace at the end of all lines in the current buffer.
 nmap <leader>dw :%s/\v\s+$<CR>
+
+" vimwiki settings
+let epoch_wiki = {'maxhi': 0, 'css_name': 'style.css', 'auto_export': 0, 'diary_index': 'diary', 'template_default': '', 'nested_syntaxes': {}, 'diary_sort': 'desc', 'path': '/home/stefan/wiki/epochwiki/', 'diary_link_fmt': '%Y-%m-%d', 'template_ext': '.html', 'syntax': 'default', 'custom_wiki2html': '', 'index': 'index', 'diary_header': 'Diary', 'ext': '.wiki', 'path_html': '/home/stefan/wiki/epochwiki_html/', 'temp': 0, 'template_path': '/home/stefan/wiki/templates/', 'list_margin': -1, 'diary_rel_path': 'diary/'}
+let personal_wiki = {'maxhi': 0, 'css_name': 'style.css', 'auto_export': 0, 'diary_index': 'diary', 'template_default': '', 'nested_syntaxes': {}, 'diary_sort': 'desc', 'path': '/home/stefan/wiki/personalwiki/', 'diary_link_fmt': '%Y-%m-%d', 'template_ext': '.html', 'syntax': 'default', 'custom_wiki2html': '', 'index': 'index', 'diary_header': 'Journal', 'ext': '.wiki', 'path_html': '/home/stefan/wiki/personalwiki_html/', 'temp': 0, 'template_path': '/home/stefan/wiki/templates/', 'list_margin': -1, 'diary_rel_path': 'diary/'}
+let g:vimwiki_list = [epoch_wiki, personal_wiki]
