@@ -18,3 +18,7 @@ _vundle_ bear minimum are included in this repo, so all that should be required 
 ```$ vim +BundleInstall +qall```
 
 which will cause _vundle_ to fetch all plugins mentioned in vimrc.
+
+## wiki
+
+The vimrc includes the `vimwiki` plugin. Under wiki is `personalwiki` - there should be a symlink at `$HOME/wiki/personalwiki` which points back to iy.
