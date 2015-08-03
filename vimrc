@@ -16,6 +16,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'kana/vim-scratch'
 Plugin 'oplatek/Conque-Shell'
+Plugin 'vim-scripts/utl.vim'
 
 call vundle#end() " required
 filetype plugin indent on " required
