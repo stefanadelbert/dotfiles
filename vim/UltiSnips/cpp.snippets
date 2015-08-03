@@ -53,8 +53,10 @@ const `!p snip.rv=type`& `!p snip.rv=member[0].upper() + member[1:]`() const {
 endsnippet
 
 snippet ns "Namespace" b
-namespace ${1:namespace}{
+namespace ${1:namespace} {
+
 ${VISUAL}${0}
+
 } // $1
 endsnippet
 
@@ -119,8 +121,19 @@ TEST_F(${1:`!p snip.rv = snip.basename or "TestSuiteName"`}, ${2:TestCaseName})
 }
 endsnippet
 
+snippet SCOPE "GTest SCOPED_TRACE" b
+{
+	SCOPED_TRACE("${1}");
+	${VISUAL}${0}
+}
+endsnippet
+
 snippet dox "Doxygen comment" b
 /**
 	@brief ${0}
 */
+endsnippet
+		
+snippet todo "TODO (Doxygen)" b
+/** @TODO ${0} */
 endsnippet

@@ -1,0 +1,22 @@
+%title AWK
+
+= Last field =
+Use `$NF` which refers to the number of fields, e.g.
+
+{{{
+... | awk '{print $NF}'
+}}}
+
+= Field separator =
+Specify the field separator to use for identifying fields in a line using the `-F` flag, e.g. to specify a comma as the field separator
+
+{{{
+... | awk -F',' '{print $1, $2}'
+}}}
+
+= Output field separator =
+To specify with character to use to separate fields in output, set the `OFS` variable, e.g. to specify tab separators
+
+{{{
+... | awk 'BEGIN{OFS="\t"} {print $1, $2}'
+}}}
