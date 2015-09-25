@@ -1,0 +1,43 @@
+= TODO =
+* [X] Sort out Subaru rego
+	* [X] Take car to Phil for an inspection
+	* [X] Pay Phil
+* [ ] Put new black parking stickers on both cars
+	* [ ] Silver
+* [ ] Give old parking sticker to Rob (valid until 6 October)
+* [ ] Fender Blues Deluxe
+	* [ ] Order spare parts
+	* [ ] Fit new jack inputs
+	* [ ] Clean faceplate
+	* [ ] Fit valves
+	* [ ] Test
+* [X] Fetch soil from nextdoor
+* [ ] Pay off credit card
+
+== DIY ==
+* [ ] Order LED globes
+
+== DoDo ==
+
+== Telstra ==
+
+== Sell ==
+* [X] Telstra cable modem
+* [ ] trellis
+* [ ] Fender Blues Deluxe
+
+----
+= Technical Environment =
+* [o] C++ Build environment
+	* [X] CentOS 6 chroot
+	* [X] gcc 4.9.2
+	* [ ] boost
+	* [ ] gtest / gmock
+* [ ] Continuous integration
+	* [ ] Buildbot
+	* [ ] Jenkins
+* [ ] vim integration
+	* [ ] build scripts which use the chroot
+	* [ ] show assembly
+----
+= Journal =

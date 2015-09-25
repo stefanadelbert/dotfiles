@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>vim</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Searching, regex</a>
+<ul>
+<li><a href="#toc_1.1">Multi-line searching</a>
+<li><a href="#toc_1.2">multis</a>
+</ul>
+</ul>
+</div>
+
+<h1 id="toc_1">Searching, regex</h1>
+
+<h2 id="toc_1.1">Multi-line searching</h2>
+
+<p>
+To match over multiple lines, you can use the special <code>\_</code> style operators.
+</p>
+
+<dl>
+<dt>\_s</dt>
+<dd>a whitespace (space or tab) or newline character</dd>
+<dt>\_^</dt>
+<dd>the beginning of a line (zero width)</dd>
+<dt>\_$</dt>
+<dd>the end of a line (zero width)</dd>
+<dt>\_.</dt>
+<dd>any character including a newline</dd>
+</dl>
+
+<h2 id="toc_1.2">multis</h2>
+
+<p>
+The <code>*</code> multi will greedily match multiple characters. The <code>\{-}</code> multi will find the shortest match.
+</p>
+
+<p>
+So, for <code>ababa</code>
+</p>
+<ul>
+<li>
+<code>.*a</code> will match <code>ababa</code>
+
+<li>
+<code>.\{-}a</code> will match <code>aba</code>
+
+</ul>
+
+</body>
+</html>

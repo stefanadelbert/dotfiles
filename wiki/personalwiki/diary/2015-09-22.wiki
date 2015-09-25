@@ -1,0 +1,52 @@
+= TODO =
+* [ ] Put new black parking stickers on both cars
+	* [ ] Silver
+* [ ] Give old parking sticker to Rob (valid until 6 October)
+* [ ] Fender Blues Deluxe
+	* [ ] Order spare parts
+	* [ ] Fit new jack inputs
+	* [ ] Clean faceplate
+	* [ ] Fit valves
+	* [ ] Test
+* [ ] Pay off credit card
+* [ ] Book campsite for the weekend
+* [X] Gearbest
+	* [X] Check gearbest order
+	* [X] Send message to ask about progress
+	* [ ] Change order
+* [ ] Fernanda
+	* [ ] Get her email address
+	* [ ] Gather links together
+	* [ ] Send links to her in an email
+
+== DIY ==
+* [ ] Order LED globes
+
+== DoDo ==
+
+== Telstra ==
+
+== Sell ==
+* [ ] trellis
+* [ ] Fender Blues Deluxe
+
+----
+= Technical Environment =
+* [o] C++ Build environment
+	* [X] CentOS 6 chroot
+	* [X] gcc 4.9.2
+	* [ ] boost
+	* [ ] gtest / gmock
+* [ ] Continuous integration
+	* [ ] Buildbot
+	* [ ] Jenkins
+* [ ] vim integration
+	* [ ] build scripts which use the chroot
+	* [ ] show assembly
+----
+= Journal =
+[2015-09-22 08:00] Beach run and swim. Rob didn't make it. 
+
+[2015-09-22 09:30] Coffee with James and Peter at Barefoot - Josh popped by.
+
+[2015-09-22 11:00] Met Josh at James' office and had a long chat about his Outspire project.

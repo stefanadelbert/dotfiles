@@ -1,0 +1,61 @@
+= TODO =
+* [X] Pay council bill
+	* [X] Need to get notice from black Subaru and check amount and due date. Think the due date may already have passed.
+* [X] Pay strata bill
+	_Scheduled payment for 1/10/2015_
+* [ ] Sort out Subaru rego
+	* [ ] Take car to Phil for an inspection
+* [X] Take a look at todoist
+* [o] Put new black parking stickers on both cars
+	* [X] Black
+	* [ ] Silver
+* [ ] Give old parking sticker to Rob (valid until 6 October)
+* [ ] Fender Blues Deluxe
+	* [ ] Order spare parts
+	* [ ] Fit new jack inputs
+	* [ ] Clean faceplate
+	* [ ] Fit valves
+	* [ ] Test
+
+== DIY ==
+* [X] Fix tile in en suite bathroom
+	* [X] Find out what is required
+	* [X] Remove other tile
+	* [X] Clean tiles
+	* [X] Clean mess
+	* [X] Dry tile
+	* [X] Glue tiles
+	* [X] Grout
+* [X] Glue soap dish in secondary bathroom
+* [ ] Order LED globes
+
+== DoDo ==
+
+== Telstra ==
+
+== Sell ==
+* [ ] Telstra cable modem
+* [ ] trellis
+* [ ] Fender Blues Deluxe
+
+----
+= Technical Environment =
+* [o] C++ Build environment
+	* [X] CentOS 6 chroot
+	* [X] gcc 4.9.2
+	* [ ] boost
+	* [ ] gtest / gmock
+* [ ] Continuous integration
+	* [ ] Buildbot
+	* [ ] Jenkins
+* [ ] vim integration
+	* [ ] build scripts which use the chroot
+	* [ ] show assembly
+----
+= Journal =
+
+[2015-09-17 07:00] Did some baking - ended up with an epic loaf, absolutely epic
+
+[2015-09-17 09:30] Scheduled payment for strata
+
+[2015-09-17 10:00] Did some work on the tiling

@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>`chroot`</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1"><code>chroot</code></a>
+<ul>
+<li><a href="#toc_1.1">CentOS on Ubuntu</a>
+<ul>
+<li><a href="#toc_1.1.1">Basic setup</a>
+<li><a href="#toc_1.1.2">Installing software</a>
+<ul>
+<li><a href="#toc_1.1.2.1">Custom build of gcc</a>
+</ul>
+</ul>
+</ul>
+</ul>
+</div>
+
+<h1 id="toc_1"><code>chroot</code></h1>
+
+<h2 id="toc_1.1">CentOS on Ubuntu</h2>
+
+<h3 id="toc_1.1.1">Basic setup</h3>
+
+<p>
+The following steps will deploy a 64bit CentOS7 chroot and get you into the chroot as yourself.
+</p>
+
+<ul>
+<li>
+Install <code>schroot</code> and <code>rinse</code>
+
+</ul>
+<p>
+<code>sudo apt-get install schroot rinse</code>
+</p>
+<ul>
+<li>
+Deploy a CentOS7 chroot
+
+</ul>
+<p>
+<code>sudo rinse --arch amd64 --directory /opt/chroost/centos7 --distribution centos-7</code>
+</p>
+<ul>
+<li>
+Configure the schroot (<code>/etc/schroot/schroot.conf</code>)
+<pre>
+[centos7]
+description=Development Environment
+type=directory
+groups=wheel
+root-groups=sudo
+profile=default
+directory=/opt/chroots/centos7
+</pre>
+
+</ul>
+
+<p>
+<em>Note</em>: The same could be done for CentOS6 by doing
+</p>
+
+<p>
+<code>sudo rinse --arch amd64 --directory /opt/chroost/centos6 --distribution centos-6</code>
+</p>
+
+<h3 id="toc_1.1.2">Installing software</h3>
+
+<p>
+Use <code>yum</code> inside the chroot to install software. You'll need to be root to do this though, so you'll need to enter the chroot as root.
+</p>
+
+<p>
+For example, to install development tools in the chroot,
+</p>
+
+<pre>
+sudo schroot -c centos7
+yum update
+yum groupinstall 'Development Tools'
+</pre>
+
+<p>
+You should be able to compile a simple C program now using gcc.
+</p>
+
+<h4 id="toc_1.1.2.1">Custom build of gcc</h4>
+
+<p>
+References:
+</p>
+<ul>
+<li>
+See <a href="https://gcc.gnu.org/install/index.html">here</a> for useful information.
+
+<li>
+Also <a href="https://gcc.gnu.org/wiki/InstallingGCC">here</a>.
+
+<li>
+This is a useful script to use as a basis: <a href="https://gist.github.com/craigminihan/b23c06afd9073ec32e0c">https://gist.github.com/craigminihan/b23c06afd9073ec32e0c</a>
+
+</ul>
+
+<p>
+I took the following steps to build gcc 4.9.2 in the CentOS6 chroot.
+</p>
+
+<ul>
+<li>
+downloaded gcc 4.9.2 from <a href="ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-4.9.2/">ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-4.9.2/</a>
+
+<li>
+rooted into the chroot: <code>sudo chroot -c centos6</code>
+
+<li>
+decompressed the archive (had to install tar: <code>yum install tar</code>)
+
+<li>
+run the prerequisites download script: <code>./contrib/download_prerequisites</code> (had to install wget: <code>yum install wget</code>)
+
+<li>
+outside of the gcc sorce code tree, e.g. in gcc-4.9.2.build, run configure: <code>../gcc-4.9.2/configure --disable-multilib --prefix=/opt/vc/gcc-4.9.2 --enable-languages=c,c++</code>
+
+</ul>
+<blockquote>
+Note that <em>--disable-multilib</em> is used to get just a 64bit build.
+</blockquote>
+<ul>
+<li>
+<code>make -j9</code>
+
+<li>
+<code>make install</code>
+
+</ul>
+
+<p>
+You should then be able to put the new build in the path and the newly uilt version should be run by default
+</p>
+
+<p>
+  <code>export PATH=/opt/vc/gcc-4.9.2/bin:$PATH; gcc --version</code>
+</p>
+
+</body>
+</html>

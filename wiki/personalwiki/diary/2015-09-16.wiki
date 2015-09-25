@@ -1,0 +1,46 @@
+= TODO =
+* [ ] Pay council bill
+* [ ] Pay strata bill
+* [ ] Sort out Subaru rego
+	* [ ] Take car to Phil for an inspection
+* [X] Buy Xiaomi Redmi Note 2
+* [X] Look at Xiaomi Redmi Note 2 accessories
+	* [X] screen protector
+	* [X] case
+* [X] Update bounties spreadsheet
+
+== DIY ==
+* [ ] Fix tile in en suite bathroom
+* [ ] Glue soap dish in secondary bathroom
+* [ ] Order LED globes
+
+== DoDo ==
+
+== Telstra ==
+
+== Sell ==
+* [ ] Telstra cable modem
+* [ ] trellis
+* [X] JBL speakers
+* [X] KEF Speakers and cables
+* [X] Pioneer receiver
+
+----
+= Technical Environment =
+* [o] C++ Build environment
+	* [X] CentOS 6 chroot
+	* [X] gcc 4.9.2
+	* [ ] boost
+	* [ ] gtest / gmock
+* [ ] Continuous integration
+	* [ ] Buildbot
+	* [ ] Jenkins
+* [ ] vim integration
+	* [ ] build scripts which use the chroot
+	* [ ] show assembly
+
+= Journal =
+[2015-09-16 07:00] Ran with Rob on the beach and had a swim.
+[2015-09-16 11:00] Assembled trampoline in the garden.
+[2015-09-16 13:00] Posted items on Gumtree
+

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>python</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">pandas</a>
+<ul>
+<li><a href="#toc_1.1">Selection, Indexing</a>
+<li><a href="#toc_1.2">apply</a>
+</ul>
+</ul>
+</div>
+
+<h1 id="toc_1">pandas</h1>
+<h2 id="toc_1.1">Selection, Indexing</h2>
+
+<p>
+To modify values in a dataframe in place, do this:
+</p>
+
+<pre>
+df.loc[df['Col1'] == 'something', 'Col1'] = 0
+df.loc[df['Col1'] == 'something else', 'Col1'] = 1
+</pre>
+
+<p>
+This can be useful for converting non-numeric values to numeric values when data is to be processed by a ML algorithm.
+</p>
+
+<p>
+To check the unique values in a Series, use <code>unique()</code>:
+</p>
+
+<pre>
+df.Col1.unique()
+</pre>
+
+<h2 id="toc_1.2">apply</h2>
+<p>
+It's possible to apply a function to each element of a series in a dataframe using <code>apply()</code>. For example,
+</p>
+
+<pre>
+df['NewColumn'] = df.OldColumn.apply(lambda x: len(x))
+</pre>
+
+<p>
+This will create a new column in the dataframe, <em>NewColumn</em>, which contains the length of each element in the <em>OldColumn</em> column.
+</p>
+<blockquote>
+Note that apply can be called on a dataframe directly, rather than on a series. In this case it's possible to specify whether the function should be applied to each column (the default) or each row using the <code>axis</code> parameter.
+</blockquote>
+
+<p>
+See <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.apply.html">here</a> for more details on the apply function.
+</p>
+
+</body>
+</html>

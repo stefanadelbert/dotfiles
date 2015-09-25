@@ -1,0 +1,69 @@
+%title `chroot`
+
+%toc
+
+= `chroot` =
+
+== CentOS on Ubuntu ==
+
+=== Basic setup ===
+
+The following steps will deploy a 64bit CentOS7 chroot and get you into the chroot as yourself.
+
+* Install `schroot` and `rinse`
+`sudo apt-get install schroot rinse`
+* Deploy a CentOS7 chroot
+`sudo rinse --arch amd64 --directory /opt/chroost/centos7 --distribution centos-7`
+* Configure the schroot (`/etc/schroot/schroot.conf`)
+{{{
+[centos7]
+description=Development Environment
+type=directory
+groups=wheel
+root-groups=sudo
+profile=default
+directory=/opt/chroots/centos7
+}}}
+
+_Note_: The same could be done for CentOS6 by doing
+
+`sudo rinse --arch amd64 --directory /opt/chroost/centos6 --distribution centos-6`
+
+=== Installing software ===
+
+Use `yum` inside the chroot to install software. You'll need to be root to do this though, so you'll need to enter the chroot as root.
+
+For example, to install development tools in the chroot,
+
+{{{
+sudo schroot -c centos7
+yum update
+yum groupinstall 'Development Tools'
+}}}
+
+You should be able to compile a simple C program now using gcc.
+
+==== Custom build of gcc ====
+
+References:
+* See [[https://gcc.gnu.org/install/index.html|here]] for useful information.
+* Also [[https://gcc.gnu.org/wiki/InstallingGCC|here]].
+* This is a useful script to use as a basis: [[https://gist.github.com/craigminihan/b23c06afd9073ec32e0c]]
+
+I took the following steps to build gcc 4.9.2 in the CentOS6 chroot.
+
+* downloaded gcc 4.9.2 from [[ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-4.9.2/]]
+* rooted into the chroot: `sudo chroot -c centos6`
+* decompressed the archive (had to install tar: `yum install tar`)
+* run the prerequisites download script: `./contrib/download_prerequisites` (had to install wget: `yum install wget`)
+* outside of the gcc sorce code tree, e.g. in gcc-4.9.2.build, run configure: `../gcc-4.9.2/configure --disable-multilib --prefix=/opt/vc/gcc-4.9.2 --enable-languages=c,c++`
+
+    Note that _--disable-multilib_ is used to get just a 64bit build.
+* `make -j9`
+* `make install`
+
+You should then be able to put the new build in the path and the newly uilt version should be run by default
+
+  `export PATH=/opt/vc/gcc-4.9.2/bin:$PATH; gcc --version`
+
+

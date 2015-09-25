@@ -1,0 +1,35 @@
+%title python
+
+%toc
+
+= pandas =
+== Selection, Indexing ==
+
+To modify values in a dataframe in place, do this:
+
+{{{
+df.loc[df['Col1'] == 'something', 'Col1'] = 0
+df.loc[df['Col1'] == 'something else', 'Col1'] = 1
+}}}
+
+This can be useful for converting non-numeric values to numeric values when data is to be processed by a ML algorithm.
+
+To check the unique values in a Series, use `unique()`:
+
+{{{
+df.Col1.unique()
+}}}
+
+== apply ==
+It's possible to apply a function to each element of a series in a dataframe using `apply()`. For example,
+
+{{{
+df['NewColumn'] = df.OldColumn.apply(lambda x: len(x))
+}}}
+
+This will create a new column in the dataframe, _NewColumn_, which contains the length of each element in the _OldColumn_ column.
+
+    Note that apply can be called on a dataframe directly, rather than on a series. In this case it's possible to specify whether the function should be applied to each column (the default) or each row using the `axis` parameter.
+
+See [[http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.apply.html|here]] for more details on the apply function.
+

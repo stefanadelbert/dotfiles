@@ -4,10 +4,15 @@ Table of Contents
 %toc
 
 = Specific Topics =
+* [[vim]]
 * [[gtest]]
 * [[gdb]]
 * [[bash]]
 * [[awk]]
+* [[chroot]]
+* [[python]]
+* [[machine_learning|Machine Learning]]
+* [[encryption]]
 
 = General Topics =
 
@@ -130,3 +135,12 @@ To get the actual command that make will use to build a compilation unit (for a 
 * To generate the *assembly code*, run make with the -S flag. By default this will produce a file with the same name as the source file, but with an _s_ extension.
 
     Remember to remove the -o flag from the make command as this will override -E and -S.
+
+== Clock tty tty-clock ==
+Really nice terminal clock - nice and simple.
+{{{
+tty-clock -c -s -C7
+}}}
+* -c centered
+* -s show seconds
+* -C7 colour (7=white)

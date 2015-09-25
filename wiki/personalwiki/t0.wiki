@@ -1,0 +1,72 @@
+%title t0 and SFE Rates
+
+= Documentation =
+Notes are in two places on Confluence:
+* Anders Lindstrom
+	* Blog
+		* Chats, diary
+		* 'Setting up dev box'
+	* Pages
+*  SFE Rates
+	* Formal documentation
+		*  Objective
+	* Strategy development framework
+		* Possibly not complete
+
+= Code =
+Get code building.
+There will be a bin directory, along with python programs.
+
+== Data ==
+
+* unzip
+`$ ../bin/isplit <data_file> - this gives a file per day in the SFE binary format`
+`$ ../bin/icat <itch_file> - human readable representation`
+
+The above two tools have nothing to do with t0. They are just a representation of the ITCH format.
+Tools with _i_ in front are for itch files.
+
+To convert ITCH files into t0 format, use `i2t`.
+
+`$ ../bin/i2t <itch_file> <t0_output_file>`
+
+To print the t0 files, use `tcat`
+`$ ../bin/tcat <t0_file>`
+
+`tcat` uses std::locale and facets to augment streams to provide additional information, such as timezones and contract symbols. This effectively adds lookup tables to the stream.
+boost timezone stuff is broken. Really a database of dates is required. t0 uses tzinfo, same as python. See src/lib/time_stamp.h.
+
+== Inferred Trades ==
+Trade inference for front month bills requires market data for all other interest rates futures, including bonds.
+Trying to get to a point where we have inferred trades for all instruments, then we can work with a specific one, like front bills.
+To do this,
+`$ ../bin/tinfer <t0_file> <t0_output_file>`
+
+This might give check failures, but it's toleratn fo those failures. For instance, if a real order matches against an implied order, then some trades in the implied product might be missed.
+This gives a file with data and interleaved inferred trads.
+
+Now need to isolate a single instrument.
+
+`./bin/filter_contract IR 2013 6 <t0_trade_file> <t0_output_file>`
+This is then the data specific to IRM3. tcat it and check.
+There will be an inferred trade for each executed trade (OrderExecuted). OrderExecuted has the side of the passive order, Inferred trade message doesn't.
+The idea here is that the inferred trades are done beforehand and then simulator then doesn't need to worry about it.
+
+== Generating a Strategy Tree ==
+
+A _tap_and_scratch_ tree represents all the possible actions that could have been taken for one entry order. All possible entry orders are determined on the open from level 3 data. If there are 100 working orders on the open, then there will initially be 100 trees. As new orders are added, new strategy trees are created for them.
+
+`.bin/stree <t0_file> <t0_output_file> IRM3 0`
+
+The 0 on the end will do everything. Put a 1 on the end and it will only do one tree. 1 is the default.
+
+== Analyse the Trees ==
+
+`./bin/analyse_decisions <t0_tree_file>`
+
+=== Tap and Scratch ===
+
+Two parameters, entry lean and exit lean.
+Create a universe of parameters sets and then work out how each of those parameters sets performs. Do this by using `analyse_decisions` which finds the max PNL for each parameter set.
+
+
