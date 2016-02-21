@@ -1,5 +1,0 @@
-= [[phonecalls/Telstra|Telstra]] =
-= [[phonecalls/Qantas|Qantas]] =
-= [[phonecalls/macbank|Macquarie Bank]] =
-= [[Dodo]] =
-

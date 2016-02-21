@@ -1,8 +1,0 @@
-%title Machine Learning
-
-= Algorithms =
-== Random Forests ==
-Creates a number of decision trees (depending on parameterisation, 100 is supposed to be a good number) and then predictions are made using all the trees and an average of the outcomes is taken as the final result.
-
-Check out sklearn.ensemble.RandomForestClassifier.
-

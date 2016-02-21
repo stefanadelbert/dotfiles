@@ -1,3 +1,0 @@
-%title Study
-
-= [[coursera/machine_learning|Machine Learning]] =

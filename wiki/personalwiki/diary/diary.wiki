@@ -1,9 +1,0 @@
-%title Personal Journal
-
-= Journal =
-
-== 2015 ==
-
-=== April ===
-    * [[2015-04-08|Telstra Cable]]
-
