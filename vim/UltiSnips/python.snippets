@@ -1,16 +1,32 @@
+snippet todo "TODO" b
+# TODO: ${0}
+endsnippet
+
 snippet mfun "Member function" b
 def ${1}(self${2}):
 	${0}
 endsnippet
 
-snippet aEq "assertEqual" b
+snippet	TestCase "unittest.TestCase" b
+class ${1}(TestCase):
+	def setUp(self):
+		pass
+
+	def tearDown(self):
+		pass
+
+	def test_${2}(self):
+		${0}
+endsnippet
+
+snippet aeq "assertEqual" b
 self.assertEqual(${1}, ${2})
 endsnippet
 
-snippet aTrue "assertTrue" b
+snippet at "assertTrue" b
 self.assertTrue(${1})
 endsnippet
 
-snippet aFalse "assertFalse" b
+snippet af "assertFalse" b
 self.assertFalse(${1})
 endsnippet

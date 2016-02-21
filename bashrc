@@ -119,3 +119,20 @@ fi
 if [[ -d ${HOME}/.scripts ]]; then
 	PATH=${PATH}:${HOME}/.scripts
 fi
+
+# If ccache exists, add it to the path.
+if [[ -d /usr/lib/ccache ]]; then
+	PATH=/usr/lib/ccache:${PATH}
+fi
+
+# Set up prompt using bash-git-prompt
+GIT_PROMPT_DIRECTORY=~/.bash-git-prompt
+if [ -d ${GIT_PROMPT_DIRECTORY} ]; then
+	GIT_PROMPT_ONLY_IN_REPO=1
+	GIT_PROMPT_THEME=Chmike
+	if [ ! -z ${debian_chroot} ]; then
+		source ${GIT_PROMPT_DIRECTORY}/prompt-colors.sh
+		GIT_PROMPT_START="${Blue}${debian_chroot} _LAST_COMMAND_INDICATOR_ ${ResetColor}${Yellow}\w${ResetColor}"
+	fi
+	source ${GIT_PROMPT_DIRECTORY}/gitprompt.sh
+fi

@@ -17,6 +17,12 @@ Plugin 'honza/vim-snippets'
 Plugin 'kana/vim-scratch'
 Plugin 'vimwiki/vimwiki'
 Plugin 'vim-scripts/utl.vim'
+Plugin 'bkad/CamelCaseMotion'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'vim-scripts/gtags.vim'
 
 call vundle#end() " required
 filetype plugin indent on " required
@@ -48,6 +54,9 @@ autocmd BufNewFile,BufRead *.config set filetype=config
 autocmd BufNewFile,BufRead *.xml set filetype=xml
 autocmd BufNewFile,BufRead *.msc set filetype=msc syntax=xmath
 
+" Spelling settings
+set spellfile=$HOME/.vim/spell/en.utf-8.add
+
 " Airline configuration
 set laststatus=2
 let g:airline_left_sep=''
@@ -72,8 +81,6 @@ nnoremap <S-F12> :ConqueTermTab bash<CR>
 nnoremap <leader>r :redraw!<CR>
 
 " Quickfix mappings.
-nnoremap <F7> :cprevious<CR>
-nnoremap <F8> :cnext<CR>
 nmap <F10> :botright copen<CR>
 nmap <C-F10> :cclose<CR>
 
@@ -112,15 +119,15 @@ nmap <silent> <leader>fg :let g:ctrlp_default_input=expand('<cword>')<CR>:CtrlP<
 " Ag for file under cursor
 nmap <silent> <leader>ag :Ag! <cword><CR>
 " Ag for last search term
-nmap <silent> <leader>ah :Ag! histget("search")<CR>
+nmap <silent> <leader>ah :AgFromSearch<CR>
 " Ag for user input
-nmap <silent> <leader>af :Ag! 
+nmap <silent> <leader>af :Ag!<SPACE>
 " Ag for file under cursor in cpp files
 nmap <silent> <leader>agc :Ag! --cpp <cword><CR>
 " Ag for last search term in cpp files
 nmap <silent> <leader>ahc :Ag! --cpp histget("search")<CR>
 " Ag for user input in cpp
-nmap <silent> <leader>afc :Ag! --cpp 
+nmap <silent> <leader>afc :Ag! --cpp<SPACE>
 
 " Convenient shortcuts for navigating between windows
 nmap <C-Left> <C-W><Left>
@@ -134,5 +141,18 @@ nmap <C-S-Right> <C-W>r
 nmap <leader>dw :%s/\v\s+$<CR>
 
 " vimwiki settings
-let personal_wiki = {'maxhi': 0, 'css_name': 'style.css', 'auto_export': 0, 'diary_index': 'diary', 'template_default': '', 'nested_syntaxes': {}, 'diary_sort': 'desc', 'path': '/home/stefan/wiki/personalwiki/', 'diary_link_fmt': '%Y-%m-%d', 'template_ext': '.html', 'syntax': 'default', 'custom_wiki2html': '', 'index': 'index', 'diary_header': 'Journal', 'ext': '.wiki', 'path_html': '/home/stefan/wiki/personalwiki_html/', 'temp': 0, 'template_path': '/home/stefan/wiki/templates/', 'list_margin': -1, 'diary_rel_path': 'diary/'}
-let g:vimwiki_list = [personal_wiki]
+let personal_wiki = {'maxhi': 0, 'css_name': 'style.css', 'auto_export': 0, 'diary_index': 'diary', 'template_default': 'wiki', 'nested_syntaxes': {}, 'diary_sort': 'desc', 'path': '/home/stefan/wiki/personalwiki/', 'diary_link_fmt': '%Y-%m-%d', 'template_ext': '.html', 'syntax': 'default', 'custom_wiki2html': '', 'index': 'index', 'diary_header': 'Journal', 'ext': '.wiki', 'path_html': '/home/stefan/wiki/personalwiki_html/', 'temp': 0, 'template_path': '/home/stefan/wiki/templates/', 'list_margin': -1, 'diary_rel_path': 'diary/'}
+let work_wiki = {'maxhi': 0, 'css_name': 'style.css', 'auto_export': 0, 'diary_index': 'diary', 'template_default': 'wiki', 'nested_syntaxes': {}, 'diary_sort': 'desc', 'path': '/home/stefan/wiki/workwiki/', 'diary_link_fmt': '%Y-%m-%d', 'template_ext': '.html', 'syntax': 'default', 'custom_wiki2html': '', 'index': 'index', 'diary_header': 'Journal', 'ext': '.wiki', 'path_html': '/home/stefan/wiki/workwiki_html/', 'temp': 0, 'template_path': '/home/stefan/wiki/templates/', 'list_margin': -1, 'diary_rel_path': 'diary/'}
+let g:vimwiki_list = [personal_wiki, work_wiki]
+
+" vim-fugitive mappings abd config
+nmap <leader>gs :Gstatus<CR><C-W>T
+nmap <leader>gd :Gdiff<CR>
+command! Greview :Git! diff --staged
+nnoremap <leader>gr :Greview<CR>
+autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' | nnoremap <buffer> .. :edit %:h<CR> | endif
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+" Configure global, gtags, cscope
+let Gtags_Result = "ctags-x"
+let Gtags_Efm = "%*\\S%*\\s%l%\\s%f%\\s%m"

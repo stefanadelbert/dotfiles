@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Set this to the block device that should be mounted.
+DEVICE='/dev/sda3'
+# Set this nickname. This script will search for ${IMAGE_NICKNAME}.img and luksOpen it as ${IMAGE_NICKNAME}.
+IMAGE_NICKNAME='vc'
+# This specifies where the decrypted image file will be mounted.
+IMAGE_MOUNTPOINT='/mnt/development'
+
+if [[ -f ${IMAGE_MOUNTPOINT}/.mounted ]]; then
+	echo "It looks like ${IMAGE_MOUNTPOINT}/.mounted exists, so there is nothing to do"
+	exit 0
+fi
+
+DEVICE_UUID=$(udisksctl info -b ${DEVICE} | grep IdUUID | sed 's#.*IdUUID:\s*\([a-z0-9]\)#\1#')
+DEVICE_MOUNTPOINT="/media/stefan/${DEVICE_UUID}"
+
+if [[ ! -f ${DEVICE_MOUNTPOINT}/.mounted ]]; then
+	echo "Mounting device ${DEVICE}"
+	udisksctl mount -b ${DEVICE}
+else
+	echo "Device already mounted at ${DEVICE_MOUNTPOINT}"
+fi
+
+IMAGE_PATH=${DEVICE_MOUNTPOINT}/${IMAGE_NICKNAME}.img
+if [[ ! -f ${IMAGE_PATH} ]]; then
+	echo "Couldn\'t find image file ${IMAGE_PATH}"
+	exit 1
+else
+	echo "Decrypting and mounting image"
+	sudo cryptsetup luksOpen ${IMAGE_PATH} ${IMAGE_NICKNAME}
+	sudo mount /dev/mapper/${IMAGE_NICKNAME} ${IMAGE_MOUNTPOINT}
+fi
+
+if [[ ! -f ${IMAGE_MOUNTPOINT}/.mounted ]]; then
+	echo "It looks like the mount was not successful. ${IMAGE_MOUNTPOINT}/.mounted couldn\'t be found"
+fi
+
+exit 0
