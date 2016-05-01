@@ -33,7 +33,8 @@ bindsym $mod+Shift+q kill
 focus_follows_mouse no
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec j4-dmenu-desktop --dmenu="dmenu.xft -i -fn Ubuntu"
+# bindsym $mod+d exec j4-dmenu-desktop --dmenu="dmenu.xft -i -fn Ubuntu"
+bindsym $mod+d exec j4-dmenu-desktop
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -132,8 +133,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec i3-msg exit
 
 # Window border
-new_window 1pixel
-new_float 1pixel
+new_window pixel 3
+new_float pixel 1
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -197,7 +198,7 @@ bar {
 
 #Colours
 # class          border  backgr. text    indicator
-client.focused   #ffffff #999999 #222222 #2e9ef4
+client.focused   #ffffff #dddddd #222222 #2e9ef4
 client.unfocused #ffffff #222222 #222222 #2e9ef4
 
 # Pulse Audio controls
@@ -219,13 +220,18 @@ bindsym --release Print exec scrot $(mktemp -p ~/Pictures -t screenshot.XXXX.png
 bindsym --release Shift+Print exec scrot --select $(mktemp -p ~/Pictures -t screenshot.XXXX.png)
 
 # Bindings for common applications
-bindsym $mod+F5 exec chromium-browser --force-device-scale-factor=2
+#bindsym $mod+F5 exec chromium-browser --force-device-scale-factor=2
+bindsym $mod+F5 exec chrome
 
-exec xautolock -time 180 -locker ~/.scripts/lock
+# Run the following programs:
+
+#exec xautolock -time 180 -locker ~/.scripts/lock
 exec unity-settings-daemon
 exec unclutter
-exec autocutsel
-exec autocutsel -s PRIMARY
-exec --no-startup-id nm-applet
+
+# http://www.nongnu.org/autocutsel/
+#exec autocutsel
+#exec autocutsel -s PRIMARY
+
 exec ~/.fehbg
 

@@ -1,41 +1,13 @@
-snippet if "If"
-if (${1}) {
-	${0}
-}
+snippet inc
+#include "${0:`!p snip.rv = (snip.basename) or ""`}.h"
 endsnippet
 
-snippet ld "Debug log message"
-LOG_DEBUG(${1:*loggerShp}, "${1:`!p snip.rv = snip.basename or "ClassName"`}::" << EC_FUNC << "${0}");
-endsnippet
-
-snippet li "Info log message"
-LOG_INFO(${1:*loggerShp}, "${1:`!p snip.rv = snip.basename or "ClassName"`}::" << EC_FUNC << "${0}");
+snippet Inc
+#include <${0:stdio.h}>
 endsnippet
 
 snippet lw "Warning log message"
-LOG_WARNING(${1:*loggerShp}, "${1:`!p snip.rv = snip.basename or "ClassName"`}::" << EC_FUNC << "${0}");
-endsnippet
-
-snippet le "Error log message"
-LOG_ERROR(${1:*loggerShp}, "${1:`!p snip.rv = snip.basename or "ClassName"`}::" << EC_FUNC << "${0}");
-endsnippet
-
-snippet strict "Start strict sequence (testing)"
-StartStrictSequence("${1}");
-	${0}${VISUAL}
-EndSequence();
-endsnippet
-
-snippet arb "Start arbitrary sequence (testing)"
-StartArbitrarySequence("${1}");
-	${0}${VISUAL}
-EndSequence();
-endsnippet
-
-snippet targets "Start targets"
-StartTargets(${1:TARGET_MOTIVE_TRADING});
-	${0}${VISUAL}
-EndTargets($1);
+LOG_WARN("${0}");
 endsnippet
 
 snippet get "Getter from member"
@@ -134,6 +106,6 @@ snippet dox "Doxygen comment" b
 */
 endsnippet
 		
-snippet todo "TODO (Doxygen)" b
-/** @TODO ${0} */
+snippet todo "TODO" b
+// TODO: ${0}
 endsnippet

@@ -19,19 +19,19 @@ vmap <leader>su :sort u<CR>
 
 " Set makeprg to use build in the chroot
 let g:chroot='wily'
-let g:buildcmd='schroot -c ' . g:chroot . ' -- make'
+let g:buildcmdprefix='schroot -c ' . g:chroot . ' -- '
 
 " This function will build the provided target using a build command
 " and populate the quickfix window with the build output.
 " Call this function with a target and optional options.
 " This funcitons relies on g:buildcmd to be set.
 " This function relies on ~/.scripts/makeargs.py existing.
-function! Make(target, options)
+function! Build(target, options)
 	" See http://github.com/vshih/vim-make for the basis of this function.
 
 	" Compile arguments.
 	let l:options = strlen(a:options) ? ' ' . a:options : ''
-	let l:target = ' ' . system('python ~/.scripts/makeargs.py ' . a:target)
+	let l:target = strlen(a:options) ? ' ' . system('python ~/.scripts/makeargs.py ' . a:target) : ''
 	let l:title = g:buildcmd . l:options . l:target
 
 	botright copen
@@ -48,6 +48,16 @@ function! Make(target, options)
 	redraw!
 endfunction
 
+function! Make(target, options)
+	let g:buildcmd = g:buildcmdprefix . 'make '
+	call Build(a:target, a:options)
+endfunction
+
+function! Bjam(target, options)
+	let g:buildcmd = g:buildcmdprefix . 'b2 '
+	call Build(a:target, a:options)
+endfunction
+
 function! InsertInclude(fileName)
 	let s:line = search("^#include", "bn")
 	if s:line == 0
@@ -56,12 +66,12 @@ function! InsertInclude(fileName)
 	call append(s:line, "#include \"" . a:fileName . "\"")
 endfunction
 
-" F6 runs the tests
-nnoremap <F6> :wa<CR>:call Make('test', '-j9')<CR>:redraw!<CR>
 " F5 builds the default set of targets
-nnoremap <F5> :wa<CR>:call Make('default', '-j9')<CR>:redraw!<CR>
+nnoremap <F5> :wa<CR>:call Make('', '-j9')<CR>:redraw!<CR>
 " Ctrl+F5 builds the compilation unit associated with the path of the file in the current buffer
 nnoremap <C-F5> :wa<CR>:call Make(expand('%'), '-j1')<CR>:redraw!<CR>
+" F6 runs the tests
+nnoremap <F6> :wa<CR>:call Bjam('', '-j9')<CR>:redraw!<CR>
 " Mappings for insert mode
 imap <F5> <ESC><F5>
 imap <C-F5> <ESC><C-F5>

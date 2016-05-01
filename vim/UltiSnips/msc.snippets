@@ -1,16 +1,19 @@
-snippet sig> "Signal"
+snippet -> "Signal"
 ${1:Source} -> ${2:Destination} [label="${3:Label}"];
 endsnippet
 
-snippet sig< "Signal"
+snippet <- "Signal"
 ${1:Source} <- ${2:Destination} [label="${3:Label}"];
 endsnippet
 
-snippet meth> "Method"
+snippet => "Method"
 ${1:Source} => ${2:Destination} [label="${3:Label}"];
 endsnippet
 
-snippet meth< "Method"
+snippet <= "Method"
 ${1:Source} <= ${2:Destination} [label="${3:Label}"];
 endsnippet
 
+snippet box "Box"
+${1:Source} box ${2:Destination} [label="${3:Label}"];
+endsnippet

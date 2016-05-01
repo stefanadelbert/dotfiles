@@ -11,13 +11,13 @@ Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'kana/vim-scratch'
 Plugin 'vimwiki/vimwiki'
 Plugin 'vim-scripts/utl.vim'
-Plugin 'bkad/CamelCaseMotion'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-surround'
@@ -61,6 +61,7 @@ set spellfile=$HOME/.vim/spell/en.utf-8.add
 set laststatus=2
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline_theme='kalisi'
 
 " UltiSnips configuration
 let g:UltiSnipsExpandTrigger="<tab>"
