@@ -125,14 +125,24 @@ if [[ -d /usr/lib/ccache ]]; then
 	PATH=/usr/lib/ccache:${PATH}
 fi
 
+if [[ -f ${HOME}/.scripts/init_grizzly ]]; then
+	source ${HOME}/.scripts/init_grizzly
+fi
+
 # Set up prompt using bash-git-prompt
 GIT_PROMPT_DIRECTORY=~/.bash-git-prompt
 if [ -d ${GIT_PROMPT_DIRECTORY} ]; then
-	GIT_PROMPT_ONLY_IN_REPO=1
+	GIT_PROMPT_ONLY_IN_REPO=0
 	GIT_PROMPT_THEME=Chmike
+	source ${GIT_PROMPT_DIRECTORY}/prompt-colors.sh
+	GIT_PROMPT_START="_LAST_COMMAND_INDICATOR_ ${ResetColor}${Yellow}\w${ResetColor}"
 	if [ ! -z ${debian_chroot} ]; then
-		source ${GIT_PROMPT_DIRECTORY}/prompt-colors.sh
-		GIT_PROMPT_START="${Blue}${debian_chroot} _LAST_COMMAND_INDICATOR_ ${ResetColor}${Yellow}\w${ResetColor}"
+		GIT_PROMPT_START="${Blue}${debian_chroot} ${GIT_PROMPT_START}"
+	fi
+	if hash 2>/dev/null bb; then
+		GIT_PROMPT_START="${Green}◎ ${ResetColor}${GIT_PROMPT_START}"
+	else
+		GIT_PROMPT_START="${Red}○ ${ResetColor}${GIT_PROMPT_START}"
 	fi
 	source ${GIT_PROMPT_DIRECTORY}/gitprompt.sh
 fi

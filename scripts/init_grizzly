@@ -1,0 +1,9 @@
+export DEV_HOME=$HOME/dev_vc
+export GRIZZLY_DIR=$DEV_HOME/grizzly
+export PATH=$GRIZZLY_DIR:$PATH
+export BLACKBEAR_DIR=$DEV_HOME/blackbear
+export CHROOT_NAME=wily
+
+export PYTHONPATH=$PYTHONPATH:$BLACKBEAR_DIR/build/final/debug/lib/python
+
+source $GRIZZLY_DIR/bashrc
