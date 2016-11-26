@@ -9,25 +9,24 @@ Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
 
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'kana/vim-scratch'
 Plugin 'vimwiki/vimwiki'
-Plugin 'vim-scripts/utl.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'vim-scripts/gtags.vim'
+Plugin 'tpope/vim-vinegar'
+Plugin 'jiangmiao/auto-pairs'
 
 call vundle#end() " required
 filetype plugin indent on " required
 
 set t_Co=256
+let base16colorspace=256
 color xoria256
 
 syntax on
@@ -48,6 +47,26 @@ set noswapfile
 
 set wildmenu
 
+set undofile
+set undodir=~/.vim/undodir
+
+" Disable the arrow keys in normal, insert and visual modes.
+"noremap <Up> <NOP>
+"noremap <Down> <NOP>
+"noremap <Left> <NOP>
+"noremap <Right> <NOP>
+"inoremap <Up> <NOP>
+"inoremap <Down> <NOP>
+"inoremap <Left> <NOP>
+"inoremap <Right> <NOP>
+"vnoremap <Up> <NOP>
+"vnoremap <Down> <NOP>
+"vnoremap <Left> <NOP>
+"vnoremap <Right> <NOP>
+
+" This reduces the delay between hitting ESC and switching to normal mode
+set timeoutlen=1000 ttimeoutlen=0
+
 " Setup custom filetype
 autocmd BufNewFile,BufRead *.analysis set filetype=analysis
 autocmd BufNewFile,BufRead *.config set filetype=config
@@ -61,7 +80,8 @@ set spellfile=$HOME/.vim/spell/en.utf-8.add
 set laststatus=2
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='kalisi'
+let g:airline_inactive_collapse=1
+"let g:airline_theme='kalisi'
 
 " UltiSnips configuration
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -75,9 +95,6 @@ let g:scratch_show_command="botright vsplit | hide buffer"
 nnoremap <F12> :ScratchOpen<CR>
 nnoremap <C-F12> :ScratchClose<CR>
 
-" Conque-Shell
-nnoremap <S-F12> :ConqueTermTab bash<CR>
-
 " Mapping for forcing a redraw.
 nnoremap <leader>r :redraw!<CR>
 
@@ -85,22 +102,11 @@ nnoremap <leader>r :redraw!<CR>
 nmap <F10> :botright copen<CR>
 nmap <C-F10> :cclose<CR>
 
-" Toggle NERDTree on the F9 key
-noremap <F9> :NERDTreeToggle<CR>
-nmap <silent> <leader>st :NERDTreeFind<CR>
-let NERDTreeDirArrows=0
-let NERDTreeWinSize=50
-
+" VIMRC and FTPLUGIN
 nmap <leader>ev :tabedit ~/.vim/ftplugin<CR>:vsplit $MYVIMRC<CR>
 
-" Toggle list
-nmap <leader>sl :set invlist<CR>
 " Toggle scrollbind
 nmap <leader>sb :set scrollbind!<CR>:set scrollbind?<CR>
-" Toggle wrap
-nmap <leader>sw :set wrap!<CR>:set wrap?<CR>
-" Toggle line numbers
-nmap <leader>sn :set nu!<CR>:set nu?
 
 " CtrlP settings
 let g:ctrlp_max_files=0
@@ -135,8 +141,9 @@ nmap <C-Left> <C-W><Left>
 nmap <C-Right> <C-W><Right>
 nmap <C-Up> <C-W><Up>
 nmap <C-Down> <C-W><Down>
-nmap <C-S-Left> <C-W>R
-nmap <C-S-Right> <C-W>r
+" Change window size
+nmap <C-S-Left> <C-W><
+nmap <C-S-Right> <C-W>>
 
 " Delete whitespace at the end of all lines in the current buffer.
 nmap <leader>dw :%s/\v\s+$<CR>
@@ -154,6 +161,52 @@ nnoremap <leader>gr :Greview<CR>
 autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' | nnoremap <buffer> .. :edit %:h<CR> | endif
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-" Configure global, gtags, cscope
-let Gtags_Result = "ctags-x"
-let Gtags_Efm = "%*\\S%*\\s%l%\\s%f%\\s%m"
+" BUILD
+let g:buildcmdprefix='bb schroot'
+" This function will build the provided target using a build command
+" and populate the quickfix window with the build output.
+" Call this function with a build_system, target and optional options.
+" This function relies on g:buildcmdprefix to be set.
+" This function relies on ~/.scripts/makeargs.py existing.
+if !exists("*Build")
+	function! Build(build_system, options, target)
+		" See http://github.com/vshih/vim-make for the basis of this function.
+
+		let l:buildcmd = g:buildcmdprefix . ' ' . a:build_system
+
+		" Compile arguments.
+		let l:options = strlen(a:options) ? ' ' . a:options : ''
+		let l:target = strlen(a:target) ? ' ' . a:target : ''
+		let l:title = l:buildcmd . l:options . l:target
+
+		" Set up the quickfixlist
+		botright copen
+		call setqflist([])
+		let w:quickfix_title = 'Building... ' . l:title
+		redraw!
+
+		" Do the build
+		silent cexpr system(l:buildcmd . l:options . l:target)
+
+		" Set quickfix title now that the build is complete
+		botright copen
+		let w:quickfix_title = 'Built ' . l:title
+		redraw!
+	endfunction
+endif
+" F5 builds the default set of targets
+nnoremap <F5> :wa<CR>:call Build('make', '-j9', '')<CR>:redraw!<CR>
+" F6 runs bjam
+nnoremap <F6> :wa<CR>:call Build('bjam', $BJAM_FLAGS, '')<CR>:redraw!<CR>
+" F7 runs the tests for a make project
+nnoremap <F7> :wa<CR>:call Build('make', '', 'test')<CR>:redraw!<CR>
+" Mappings for insert mode
+imap <F5> <ESC><F5>
+imap <C-F5> <ESC><C-F5>
+imap <F6> <ESC><F6>
+
+" SORTING
+" Do a unique sort on the inner paragraph
+nmap <leader>su vip:sort u<CR>
+" Do a unique sort on the selection
+vmap <leader>su :sort u<CR>

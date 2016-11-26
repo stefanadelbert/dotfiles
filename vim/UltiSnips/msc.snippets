@@ -14,6 +14,28 @@ snippet <= "Method"
 ${1:Source} <= ${2:Destination} [label="${3:Label}"];
 endsnippet
 
+snippet =>> "Callback"
+${1:Source} =>> ${2:Destination} [label="${3:Label}"];
+endsnippet
+
+snippet <<= "Callback"
+${1:Source} <<= ${2:Destination} [label="${3:Label}"];
+endsnippet
+
 snippet box "Box"
 ${1:Source} box ${2:Destination} [label="${3:Label}"];
+endsnippet
+
+snippet note "Note"
+${1:Source} note ${2:Destination} [label="${3:Label}", textbgcolor="yellow"];
+endsnippet
+
+# Draw an order status box
+snippet order "Order Status"
+${1:Source} box $1 [label="
+	q:   ${2:quantity}\n
+	wq:  ${3:working quantity}\n
+	ex:  ${4:exposure}\n
+	ed:  ${5:exposure delta}",
+	textbgcolor="#00cccc"];
 endsnippet

@@ -1,1 +1,1 @@
-nmap <C-F5> :w<CR> :!mscgen -T png %<CR>
+nmap <F5> :w<CR> :silent make\|redraw!\|cc<CR>

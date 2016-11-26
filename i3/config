@@ -11,6 +11,34 @@
 
 set $mod Mod4
 
+set $base00 #101218
+set $base01 #1f222d
+set $base02 #252936
+set $base03 #7780a1
+set $base04 #C0C5CE
+set $base05 #d1d4e0
+set $base06 #C9CCDB
+set $base07 #ffffff
+set $base08 #ee829f
+set $base09 #f99170
+set $base0A #ffefcc
+set $base0B #a5ffe1
+set $base0C #97e0ff
+set $base0D #97bbf7
+set $base0E #c0b7f9
+set $base0F #fcc09
+
+set $workspace1 "1 "
+set $workspace2 "2 "
+set $workspace3 "3 "
+set $workspace4 "4"
+set $workspace5 "5 "
+set $workspace6 "6 "
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10 "
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -18,28 +46,18 @@ set $mod Mod4
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-font pango:DejaVu Sans Mono 10
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
-# kill focused window
-bindsym $mod+Shift+q kill
-
-# Prevent the window focus from following the mouse
+#font pango:DejaVu Sans Mono 10
+#floating_modifier $mod
+new_window pixel 1
+new_float pixel 1
+#smart_borders on
+#gaps inner 0
+#gaps outer 0
 focus_follows_mouse no
 
-# start dmenu (a program launcher)
-# bindsym $mod+d exec j4-dmenu-desktop --dmenu="dmenu.xft -i -fn Ubuntu"
-bindsym $mod+d exec j4-dmenu-desktop
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
+bindsym $mod+Return exec urxvt
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec rofi -opacity 90 -font Droid\ Sans\ 28 -color-window "#273238" -show run
 bindsym $mod+l exec ~/.scripts/lock
 
 # alternatively, you can use the cursor keys:
@@ -84,16 +102,16 @@ bindsym $mod+a focus parent
 bindsym $mod+c focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
 
 # Switch workspaces on current output
 bindsym control+Mod1+Left workspace prev_on_output
@@ -114,16 +132,16 @@ bindsym control+Mod1+Shift+Left move container to workspace prev_on_output; work
 bindsym control+Mod1+Shift+Right move container to workspace next_on_output; workspace next_on_output;
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1; workspace 1
-bindsym $mod+Shift+2 move container to workspace 2; workspace 2
-bindsym $mod+Shift+3 move container to workspace 3; workspace 3
-bindsym $mod+Shift+4 move container to workspace 4; workspace 4
-bindsym $mod+Shift+5 move container to workspace 5; workspace 5
-bindsym $mod+Shift+6 move container to workspace 6; workspace 6
-bindsym $mod+Shift+7 move container to workspace 7; workspace 7
-bindsym $mod+Shift+8 move container to workspace 8; workspace 8
-bindsym $mod+Shift+9 move container to workspace 9; workspace 9
-bindsym $mod+Shift+0 move container to workspace 10; workspace 10
+bindsym $mod+Shift+1 move container to workspace $workspace1; workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2; workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3; workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4; workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5; workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6; workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7; workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8; workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9; workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10; workspace $workspace10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -132,12 +150,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec i3-msg exit
 
-# Window border
-new_window pixel 2
-new_float pixel 1
 
 # resize window (you can also use the mouse for that)
-mode "resize" {
+mode "  " {
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10px or 10 ppt
         bindsym Down resize grow height 10px or 10 ppt
@@ -163,45 +178,58 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+r mode "  "
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	output eDP1
-    status_command i3status
-    mode hide
-    modifier $mod
-    font pango:FontAwesome 32
-	workspace_buttons yes
-	tray_output eDP1
-}
-
-bar {
 	output eDP-1-0
-    status_command i3status
+	output eDP1
+    status_command i3blocks -c ~/.i3/i3blocks.conf
     mode hide
     modifier $mod
-    font pango:FontAwesome 32
+    font pango:FontAwesome 28
 	workspace_buttons yes
 	tray_output eDP1
+    colors {
+      separator $base03
+      background $base01
+      statusline $base05
+#                        border  background text
+      focused_workspace  $base01 $base01    $base07
+      active_workspace   $base01 $base02    $base03
+      inactive_workspace $base01 $base01    $base03
+      urgent_workspace   $base01 $base01    $base08
+    }
 }
 
 bar {
 	output HDMI1
 	output DP1
-    status_command i3status --config ~/.i3status.minimal.conf
+    status_command i3blocks -c ~/.i3/i3blocks.minimal.conf
     mode hide
     modifier $mod
-    font pango: FontAwesome 32
+    font pango: FontAwesome 20
 	workspace_buttons yes
 	tray_output none
+    colors {
+      separator $base03
+      background $base01
+      statusline $base05
+#                        border  background text
+      focused_workspace  $base01 $base01    $base07
+      active_workspace   $base01 $base02    $base03
+      inactive_workspace $base01 $base01    $base03
+      urgent_workspace   $base01 $base01    $base08
+    }
 }
 
-#Colours
-# class          border  backgr. text    indicator
-client.focused   #ffffff #dddddd #222222 #2e9ef4
-client.unfocused #ffffff #222222 #222222 #2e9ef4
+# Widow Colours
+#                       border  background text    indicator
+client.focused          $base01 $base03    $base07 $base0F
+client.focused_inactive $base02 $base02    $base03 $base0F
+client.unfocused        $base02 $base02    $base03 $base0F
+client.urgent           $base02 $base08    $base00 $base0F
 
 # Pulse Audio controls
 # Reversed the bindings so that pushing the keyboard volume dial away increases thew volume
@@ -217,6 +245,8 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym XF86Sleep exec i3-msg exit
 
+for_window [title=”tilda”] floating enable, sticky enable, resize set 2000 350, move absolute position 600 50
+
 # Bindings for print screen
 bindsym --release Print exec scrot $(mktemp -p ~/Pictures -t screenshot.XXXX.png)
 #bindsym --release Shift+Print exec scrot --select $(mktemp -p ~/Pictures -t screenshot.XXXX.png)
@@ -224,18 +254,18 @@ bindsym --release Print exec scrot $(mktemp -p ~/Pictures -t screenshot.XXXX.png
 bindsym --release Shift+Print exec gnome-screenshot -a -c
 
 # Bindings for common applications
-#bindsym $mod+F5 exec chromium-browser --force-device-scale-factor=2
-bindsym $mod+F5 exec chrome
+bindsym $mod+F5 exec google-chrome --enable-dom-distiller
 
 # Run the following programs:
 
-#exec xautolock -time 180 -locker ~/.scripts/lock
+exec xautolock -time 180 -locker ~/.scripts/lock
 exec unity-settings-daemon
 exec unclutter
 
 # http://www.nongnu.org/autocutsel/
-#exec autocutsel
-#exec autocutsel -s PRIMARY
+exec autocutsel
+exec autocutsel -s PRIMARY
 
 exec ~/.fehbg
-
+exec compton -D5 -f
+exec urxvt -name tilda

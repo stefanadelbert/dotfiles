@@ -1,0 +1,37 @@
+#!/bin/bash
+
+usage() {
+	echo "Usage:"
+	echo
+	echo "$(basename $0) <profile>"
+	echo
+	echo "	profile	powersave, performance"
+}
+
+wrong_usage() {
+	usage
+	exit 1
+}
+
+while [ $# != 0 ]; do
+    case $1 in
+        --help|-h) usage; exit 0 ;;
+        -*) ;;
+        *) break ;;
+    esac
+    shift
+done
+
+[ $# -eq 1 ] || wrong_usage
+
+profile=$1
+
+set_profile() {
+	local _profile=${1:?}
+	for i in $(seq 0 7); do echo "Setting CPU ${i} profile to ${_profile}"; cpufreq-set --cpu ${i} --governor ${_profile}; done
+}
+
+case ${profile} in
+	powersave|performance) set_profile ${profile} ;;
+	*) echo "Unknown profile ${profile}"; exit 1 ;;
+esac

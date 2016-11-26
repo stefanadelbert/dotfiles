@@ -1,0 +1,30 @@
+// vim:ts=4:sw=4:et
+{
+    // splith split container with 2 children
+    "layout": "splith",
+    "percent": null,
+    "type": "con",
+    "nodes": [
+        {
+            "name": "remex_otp",
+            "percent": 0.6,
+            "swallows": [
+               {
+                "window_role": "^remex_otp$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "name": "remex-cli",
+            "percent": 0.4,
+            "swallows": [
+               {
+                "window_role": "^remex-cli$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

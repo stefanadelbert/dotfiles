@@ -2,7 +2,7 @@
 
 #scrot /tmp/screenshot.png
 #convert /tmp/screenshot.png -blur 0x5 /tmp/screenshotblur.png
+#scrot -q 1 /tmp/screenshot.png --exec 'convert $f -blur 0x5 /tmp/screenshotblur.png'
 
-scrot -q 1 /tmp/screenshot.png --exec 'convert $f -blur 0x5 /tmp/screenshotblur.png'
-
-i3lock -n -i /tmp/screenshotblur.png
+import -window root /tmp/screenshot.png; convert -scale 10% -scale 1000% /tmp/screenshot.png /tmp/screenshot.png 
+i3lock -n -i /tmp/screenshot.png

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+status=$(~/.scripts/battery | head -1)
+colour=$(~/.scripts/battery | tail -1)
+
+notify-send -u low -h string:fgcolor:${colour} "Battery" "${status}"

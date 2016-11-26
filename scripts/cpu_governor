@@ -1,0 +1,14 @@
+#!/bin/bash
+
+governor=$(cpufreq-info -c 0 | grep "The governor" | sed 's/^.*"\(\w\+\)".*$/\1/')
+
+if [[ ${governor} == "powersave" ]]; then short_text=""; colour="#999999";
+elif [[ ${governor} == "performance" ]]; then short_text=""; colour="#FFFFFF"
+else exit 33;
+fi
+
+echo ${short_text}
+echo ${short_text}
+echo ${colour}
+
+exit 0

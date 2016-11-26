@@ -1,0 +1,43 @@
+#!/bin/bash
+
+bat_number=${BLOCK_INSTANCE:-0}
+
+acpi=$(acpi -b | grep "Battery ${bat_number}")
+
+$(echo ${acpi} | grep -q ": \w\+, [0-9]\+%") || exit 33
+
+status=$(echo ${acpi} | sed 's/^.*: \(\w\+\),.*$/\1/')
+percent=$(echo ${acpi} | sed 's/^.*, \([0-9]\+\)%.*$/\1/')
+
+if [[ ${status} == "Discharging" ]]; then
+	if [ $percent -lt 20 ]; then short_text="";
+	elif [ $percent -lt 40 ]; then short_text="";
+	elif [ $percent -lt 60 ]; then short_text="";
+	elif [ $percent -lt 85 ]; then short_text="";
+	else short_text="";
+	fi
+elif [[ ${status} == "Charging" ]]; then
+	short_text="";
+elif [[ ${status} == "Full" ]]; then
+	short_text="";
+fi
+
+full_text="${short_text} ${percent}%"
+if (echo ${acpi} | grep -q "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"); then
+	time=$(echo ${acpi} | sed 's/^.*\([0-9][0-9]:[0-9][0-9]\):.*$/\1/')
+	full_text="${full_text} (${time})"
+fi
+
+echo ${full_text}
+echo ${short_text}
+
+if [ $percent -lt 20 ]; then echo "#CC0000";
+elif [ $percent -lt 40 ]; then echo "#CCE00";
+elif [ $percent -lt 60 ]; then echo "#CCF600";
+elif [ $percent -lt 85 ]; then echo "#CCFF00";
+else echo "#CCCCCC"
+fi
+
+[ ${percent} -lt 5 ] && exit 33
+
+exit 0

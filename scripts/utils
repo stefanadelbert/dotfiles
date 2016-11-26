@@ -1,0 +1,6 @@
+terminal () {
+	local _role _cmd
+	_role=${1:?}
+	_cmd=${2:?}
+	gnome-terminal --role "${_role}" -e "bash -c \"${_cmd}\"" &
+}

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Select a random wallpaper from the wallpapers directory and set it.
+feh --bg-fill $(find ~/Pictures/wallpapers -type f -name "*.jpg" | sort -R | head -1)
+
+exit 0
