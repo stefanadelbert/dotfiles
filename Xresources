@@ -1,0 +1,55 @@
+*color0:  #2E3436
+*color1:  #a40000
+*color2:  #4E9A06
+*color3:  #C4A000
+*color4:  #3465A4
+*color5:  #75507B
+*color6:  #ce5c00
+*color7:  #babdb9
+*color8:  #555753
+*color9:  #EF2929
+*color10: #8AE234
+*color11: #FCE94F
+*color12: #729FCF
+*color13: #AD7FA8
+*color14: #fcaf3e
+*color15: #EEEEEC
+
+URxvt*depth: 32
+URxvt*foreground: white
+URxvt*background: rgba:0000/0000/0200/c800
+
+URxvt.iso14755: False
+URxvt.iso14755_52: False
+
+URxvt.keysym.C-Up: \033[1;5A
+URxvt.keysym.C-Down: \033[1;5B
+URxvt.keysym.C-Right: \033[1;5C
+URxvt.keysym.C-Left: \033[1;5D
+
+URxvt.keysym.C-S-Up: \033[1;6A
+URxvt.keysym.C-S-Down: \033[1;6B
+URxvt.keysym.C-S-Right: \033[1;6C
+URxvt.keysym.C-S-Left: \033[1;6D
+
+URxvt.font: xft:Ubuntu Mono:pixelsize=28
+URxvt.boldFont: xft:Ubuntu Mono:pixelsize=28:bold
+URxvt.italicFont: xft:Ubuntu Mono:pixelsize=28:italic
+URxvt.boldItalicFont: xft:Ubuntu Mono:pixelsize=28:bold:italic
+URxvt.letterSpace: -1
+
+URxvt.internalBorder: 0
+URxvt.externalBorder: 0
+URxvt.scrollBar: false
+URxvt*fading: 40
+URxvt.perl-ext-common: resize-font
+URxvt.url-launcher: /usr/bin/google-chrome
+URxvt.colorUL: #7780a1
+
+Xcursor.theme: DMZ-White
+
+rofi.color-enabled: true
+rofi.color-window: #273238
+rofi.color-normal: #273238, #c1c1c1, #273238, #394249, #ffffff
+rofi.color-active: #273238, #80cbc4, #273238, #394249, #80cbc4
+rofi.color-urgent: #273238, #ff1844, #273238, #394249, #ff1844
