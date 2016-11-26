@@ -1,2 +1,0 @@
-#<ip>,<username>,<password>,<description>
-10.10.10.2,stefan,12345!@#$%,Some desktop box
