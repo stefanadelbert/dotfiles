@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo $(date '+%Y-%m-%d %H:%M:%S')
+echo $(date '+%Y-%m-%d %H:%M:%S')
+echo "#AAAAAA"
+
+[ -z ${BLOCK_BUTTON} ] && exit 0
+
+_timezones="Australia/Sydney Europe/London America/Cayman"
+
+_international_times=
+for timezone in ${_timezones}; do
+	echo ${timezone}
+	_city=$(echo ${timezone} | sed 's/^.*\/\(.*\)$/\1/')
+	_international_times="${_international_times}${_city} $(TZ=${timezone} date '+%H:%M:%S %Z')\n"
+done
+
+notify-send "Internation Times" "${_international_times}"
+
+exit 0

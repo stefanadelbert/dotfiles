@@ -1,3 +1,9 @@
 #alias vim='TERM=xterm-256color vim'
 
 alias agc='ag --cpp'
+alias aga='ag --all-text'
+
+alias nmwifi='nmcli radio wifi'
+alias nmlist='nmcli device wifi list'
+alias nmst='nmcli device status'
+alias nmconnect='nmcli device wifi connect $(nmcli --colors no --fields SSID,BARS device wifi | grep -vP "^(SSID|--)" | fzf | grep -o "^\w\+")'

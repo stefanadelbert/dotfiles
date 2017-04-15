@@ -3,6 +3,8 @@ setlocal colorcolumn=100
 setlocal cursorcolumn
 setlocal cursorline
 
+setlocal relativenumber
+
 setlocal expandtab
 
 " Switch between header and source files.

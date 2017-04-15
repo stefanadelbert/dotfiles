@@ -1,8 +1,13 @@
 #!/bin/bash
 
-#scrot /tmp/screenshot.png
-#convert /tmp/screenshot.png -blur 0x5 /tmp/screenshotblur.png
-#scrot -q 1 /tmp/screenshot.png --exec 'convert $f -blur 0x5 /tmp/screenshotblur.png'
+screenshot="/tmp/screenshot.png"
+padlock="/home/stefan/Pictures/padlock.png"
 
-import -window root /tmp/screenshot.png; convert -scale 10% -scale 1000% /tmp/screenshot.png /tmp/screenshot.png 
-i3lock -n -i /tmp/screenshot.png
+icon_overlay=
+[ -f "${padlock}" ] && icon_overlay="${padlock} -gravity Center -composite -matte"
+
+scrot ${screenshot}
+convert ${screenshot} -scale 10% -scale 1000% ${icon_overlay} ${screenshot}
+
+i3lock -n -u -i ${screenshot}
+rm ${screenshot}

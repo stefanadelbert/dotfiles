@@ -1,0 +1,25 @@
+#!/bin/bash
+
+source ~/.scripts/init_grizzly
+source ${GRIZZLY_DIR}/bin/common.lib
+
+BUILD_USER=bb_build
+BUILD_HOST=yogi
+
+set -e
+
+bb cd blackbear
+
+[ -n "$(bb status --porcelain)" ] && { error "Uncommitted changes"; exit 1; }
+
+TAG=$(bb tag --show-next)
+log_info "Working with tag ${TAG}"
+
+bb tag --apply-next
+bb push --follow-tags
+
+log_comment "Building..."
+ssh ${BUILD_USER}@${BUILD_HOST} build --no-nuke ${TAG}
+log_comment "Deploying..."
+ssh ${BUILD_USER}@${BUILD_HOST} "bb cd beaver && chmake paper_install"
+log_comment "Done"

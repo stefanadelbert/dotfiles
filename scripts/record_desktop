@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+OUTPUT="${HOME}/Videos/desktop.$(date '+%Y%m%d-%H%M%S').mp4"
+
+cvlc \
+	screen:// \
+	:screen-fps=5 \
+	:sout="#transcode{vcodec=h264,vb=400,fps=5,scale=0.25,acodec=none}:file{dst=${OUTPUT}}"

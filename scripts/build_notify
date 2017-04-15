@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ $? -ne 0 ]; then
+	notify-send --urgency=critical "Build" "Failed"
+else
+	notify-send "Build" "OK"
+fi

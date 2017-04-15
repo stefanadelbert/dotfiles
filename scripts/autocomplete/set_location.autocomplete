@@ -1,0 +1,2 @@
+options="office remote"
+complete -W "${options}" set_location

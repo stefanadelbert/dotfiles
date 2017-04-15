@@ -1,0 +1,11 @@
+#!/bin/bash
+
+i3-msg "append_layout ${HOME}/.i3/layout/workspace-blackbear.json"
+
+USER=bb_staging
+
+urxvt -title strategy -e bash -c "ssh ${USER}@alc-tr2" &
+urxvt -title kuma -e bash -c "ssh ${USER}@kuma" &
+urxvt -title remex -e bash -c "ssh ${USER}@smokey" &
+urxvt -title smokey -e bash -c "ssh -X ${USER}@smokey" &
+urxvt -title clock -e bash -c "tty-clock -s -c -C3" &

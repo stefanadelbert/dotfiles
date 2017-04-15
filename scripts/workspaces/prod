@@ -1,0 +1,9 @@
+#!/bin/bash
+
+i3-msg "append_layout ${HOME}/.i3/layout/workspace-trading.json"
+
+urxvt -title prod -e bash -c "ssh bb_prod@alc-tr2" &
+urxvt -title remex -e bash -c "ssh bb_prod@smokey" &
+urxvt -title clock -e bash -c "tty-clock -s -c -C1" &
+urxvt -title kuma -e bash -c "ssh bb_prod@kuma" &
+urxvt -title smokey -e bash -c "ssh -X bb_prod@smokey" &

@@ -86,6 +86,10 @@ TEST(${1:`!p snip.rv = snip.basename or "TestSuiteName"`}, ${2:TestCaseName})
 }
 endsnippet
 
+snippet AEQ "Assert Equal"
+ASSERT_EQ(${1}, ${0});
+endsnippet
+
 snippet TESTF "gtest test_fixture case" b
 TEST_F(${1:`!p snip.rv = snip.basename or "TestSuiteName"`}, ${2:TestCaseName})
 {

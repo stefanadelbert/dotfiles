@@ -1,0 +1,9 @@
+#!/usr/bin/expect
+set timeout -1
+cd /home/stefan/fortis_vpn
+spawn ./forticlientsslvpn_cli --server vpn.vivcourt.com:443 --vpnuser stef
+expect "Password for VPN:" {send -- "WmpD1UZo5IT2\r"}
+expect "to this server? (Y/N)\r" {send -- "Y\r"}
+expect "A FortiToken code is required for SSL-VPN login authentication.\r" {interact}
+
+#expect eof

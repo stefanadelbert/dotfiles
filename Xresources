@@ -15,38 +15,40 @@
 *color14: #fcaf3e
 *color15: #EEEEEC
 
-URxvt*depth: 32
-URxvt*foreground: white
-URxvt*background: rgba:0000/0000/0200/c800
+urxvt*depth: 32
+urxvt*foreground: white
+urxvt*background: rgba:0000/0000/0200/c800
+urxvt.iso14755: False
+urxvt.iso14755_52: False
+urxvt.keysym.C-Up: \033[1;5A
+urxvt.keysym.C-Down: \033[1;5B
+urxvt.keysym.C-Right: \033[1;5C
+urxvt.keysym.C-Left: \033[1;5D
+urxvt.keysym.C-S-Up: \033[1;6A
+urxvt.keysym.C-S-Down: \033[1;6B
+urxvt.keysym.C-S-Right: \033[1;6C
+urxvt.keysym.C-S-Left: \033[1;6D
+urxvt.font: xft:RobotoMono Nerd Font:size=10
+urxvt.boldFont: xft:RobotoMono Nerd Font:size=10:bold
+urxvt.italicFont: xft:RobotoMono Nerd Font:size=10:italic
+urxvt.boldItalicFont: xft:RobotoMono Nerd Font:size=10:bold:italic
+urxvt.letterSpace: -1
+urxvt.internalBorder: 0
+urxvt.externalBorder: 0
+urxvt.scrollBar: false
+urxvt.fading: 40
+urxvt.perl-ext-common: default,resize-font
+urxvt.url-launcher: /usr/bin/google-chrome
+urxvt.colorUL: #7780a1
+urxvt.searchable-scrollback: C-f
+urxvt.saveLines: 50000
+urxvt.scrollTtyOutput: false
+urxvt.scrollTtyKeypress: true
+urxvt.scrollWithBuffer: true
 
-URxvt.iso14755: False
-URxvt.iso14755_52: False
+Xcursor.theme: DMZ-Black
 
-URxvt.keysym.C-Up: \033[1;5A
-URxvt.keysym.C-Down: \033[1;5B
-URxvt.keysym.C-Right: \033[1;5C
-URxvt.keysym.C-Left: \033[1;5D
-
-URxvt.keysym.C-S-Up: \033[1;6A
-URxvt.keysym.C-S-Down: \033[1;6B
-URxvt.keysym.C-S-Right: \033[1;6C
-URxvt.keysym.C-S-Left: \033[1;6D
-
-URxvt.font: xft:Ubuntu Mono:pixelsize=28
-URxvt.boldFont: xft:Ubuntu Mono:pixelsize=28:bold
-URxvt.italicFont: xft:Ubuntu Mono:pixelsize=28:italic
-URxvt.boldItalicFont: xft:Ubuntu Mono:pixelsize=28:bold:italic
-URxvt.letterSpace: -1
-
-URxvt.internalBorder: 0
-URxvt.externalBorder: 0
-URxvt.scrollBar: false
-URxvt*fading: 40
-URxvt.perl-ext-common: resize-font
-URxvt.url-launcher: /usr/bin/google-chrome
-URxvt.colorUL: #7780a1
-
-Xcursor.theme: DMZ-White
+Xft.dpi: 235
 
 rofi.color-enabled: true
 rofi.color-window: #273238

@@ -1,0 +1,23 @@
+snippet desc
+describe('${1}', () => {
+	${VISUAL}${0}
+});
+endsnippet
+
+snippet it
+it('${1}', () => {
+	expects(
+		${VISUAL}${0://received}
+	).${2:toEqual}(
+		${3://expected}
+	);
+});
+endsnippet
+
+snippet imp "Import" b
+import { ${VISUAL}${1} } from '${0}';
+endsnippet
+
+snippet tag "Create a tag" b
+<${1}>${VISUAL}${0}</${1}>
+endsnippet

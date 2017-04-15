@@ -1,28 +1,23 @@
 set nocompatible " be iMproved, required
-filetype off " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdcommenter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'jiangmiao/auto-pairs'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+call plug#end()
 
-Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
-
-Plugin 'rking/ag.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'vimwiki/vimwiki'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-vinegar'
-Plugin 'jiangmiao/auto-pairs'
-
-call vundle#end() " required
 filetype plugin indent on " required
 
 set t_Co=256
@@ -36,6 +31,7 @@ set tabstop=4
 set shiftwidth=4
 set noexpandtab
 set backspace=2
+set relativenumber
 
 set ignorecase
 set smartcase
@@ -108,33 +104,19 @@ nmap <leader>ev :tabedit ~/.vim/ftplugin<CR>:vsplit $MYVIMRC<CR>
 " Toggle scrollbind
 nmap <leader>sb :set scrollbind!<CR>:set scrollbind?<CR>
 
-" CtrlP settings
-let g:ctrlp_max_files=0
-let g:ctrlp_max_depth=40
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:30'
-" CltrP for files below the current working directory
-nmap <silent> <leader>ff :let g:ctrlp_default_input=''<CR>:CtrlP<CR>
-" CtrlP for all open buffers
-nmap <silent> <leader>fb :let g:ctrlp_default_input=''<CR>:CtrlPBuffer<CR>
-" CtrlP in directory mode
-nmap <silent> <leader>fd :let g:ctrlp_default_input=''<CR>:CtrlPDir<CR>
-" CtrlP in MRU mode
-nmap <silent> <leader>fm :let g:ctrlp_default_input=''<CR>:CtrlPMRUFile<CR>
-" CtrlP using the word under the cursor
-nmap <silent> <leader>fg :let g:ctrlp_default_input=expand('<cword>')<CR>:CtrlP<CR>
+" Find file from list of files under git control
+nmap <silent> <leader>ff :GFiles<CR>
+" Find file from list of all files
+nmap <silent> <leader>fg :Files<CR>
+nmap <silent> <leader>fb :Buffers<CR>
+nmap <silent> <leader>fh :History<CR>
 
 " Ag for file under cursor
-nmap <silent> <leader>ag :Ag! <cword><CR>
+nmap <silent> <leader>ag :Ag<CR>
 " Ag for last search term
-nmap <silent> <leader>ah :AgFromSearch<CR>
+nmap <silent> <leader>ah :Ag histget("search")<CR>
 " Ag for user input
 nmap <silent> <leader>af :Ag!<SPACE>
-" Ag for file under cursor in cpp files
-nmap <silent> <leader>agc :Ag! --cpp <cword><CR>
-" Ag for last search term in cpp files
-nmap <silent> <leader>ahc :Ag! --cpp histget("search")<CR>
-" Ag for user input in cpp
-nmap <silent> <leader>afc :Ag! --cpp<SPACE>
 
 " Convenient shortcuts for navigating between windows
 nmap <C-Left> <C-W><Left>
@@ -161,49 +143,18 @@ nnoremap <leader>gr :Greview<CR>
 autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' | nnoremap <buffer> .. :edit %:h<CR> | endif
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-" BUILD
-let g:buildcmdprefix='bb schroot'
-" This function will build the provided target using a build command
-" and populate the quickfix window with the build output.
-" Call this function with a build_system, target and optional options.
-" This function relies on g:buildcmdprefix to be set.
-" This function relies on ~/.scripts/makeargs.py existing.
-if !exists("*Build")
-	function! Build(build_system, options, target)
-		" See http://github.com/vshih/vim-make for the basis of this function.
-
-		let l:buildcmd = g:buildcmdprefix . ' ' . a:build_system
-
-		" Compile arguments.
-		let l:options = strlen(a:options) ? ' ' . a:options : ''
-		let l:target = strlen(a:target) ? ' ' . a:target : ''
-		let l:title = l:buildcmd . l:options . l:target
-
-		" Set up the quickfixlist
-		botright copen
-		call setqflist([])
-		let w:quickfix_title = 'Building... ' . l:title
-		redraw!
-
-		" Do the build
-		silent cexpr system(l:buildcmd . l:options . l:target)
-
-		" Set quickfix title now that the build is complete
-		botright copen
-		let w:quickfix_title = 'Built ' . l:title
-		redraw!
-	endfunction
-endif
 " F5 builds the default set of targets
-nnoremap <F5> :wa<CR>:call Build('make', '-j9', '')<CR>:redraw!<CR>
-" F6 runs bjam
-nnoremap <F6> :wa<CR>:call Build('bjam', $BJAM_FLAGS, '')<CR>:redraw!<CR>
+nnoremap <F5> :wa<CR>:AsyncRun chmake<CR>
 " F7 runs the tests for a make project
-nnoremap <F7> :wa<CR>:call Build('make', '', 'test')<CR>:redraw!<CR>
+nnoremap <F7> :wa<CR>:AsyncRun chmake test<CR>
+" F8 builds all of Blackbear
+nnoremap <F8> :wa<CR>:AsyncRun bb make<CR>
+" F9 builds just the target that depends on the current file.
+nnoremap <F9> :wa<CR>:AsyncRun chmake $(build_object %)<CR>
 " Mappings for insert mode
 imap <F5> <ESC><F5>
-imap <C-F5> <ESC><C-F5>
-imap <F6> <ESC><F6>
+imap <F7> <ESC><F7>
+imap <F8> <ESC><F8>
 
 " SORTING
 " Do a unique sort on the inner paragraph

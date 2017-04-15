@@ -7,6 +7,13 @@ elif [[ ${governor} == "performance" ]]; then short_text=""; colour="#FFFFFF"
 else exit 33;
 fi
 
+if [ ${BLOCK_BUTTON} == "1" ]; then
+	short_text="${short_text} ($(lscpu | grep "CPU MHz:" | grep -Po "\d+.\d+") MHz)"
+elif [ ${BLOCK_BUTTON} == "3" ]; then
+	governor=$(zenity --list --text="Select CPU governor" --hide-header --column "Governor" powersave performance)
+	[ ! -z ${governor} ] && gksudo ~/.scripts/set_cpu_governor ${governor}
+fi
+
 echo ${short_text}
 echo ${short_text}
 echo ${colour}

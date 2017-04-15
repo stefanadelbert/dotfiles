@@ -1,0 +1,12 @@
+#!/bin/bash
+
+i3-msg "append_layout ${HOME}/.i3/layout/workspace-test.json"
+
+USER=bb_test
+
+urxvt -title strategy_server -e bash -c "ssh ${USER}@alc-dev1.vivcourt.com" &
+urxvt -title strategy_server -e bash -c "ssh ${USER}@alc-dev1.vivcourt.com" &
+urxvt -title remex -e bash -c "ssh ${USER}@localhost" &
+urxvt -title remex -e bash -c "ssh ${USER}@localhost" &
+urxvt -title kuma -e bash -c "ssh ${USER}@kuma.vivcourt.com" &
+urxvt -title gui -e bash -c "ssh -X ${USER}@localhost" &

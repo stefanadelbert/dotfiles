@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# This script will return the name of the target that the provided source files is a dependency of.
+# This script can be used to build just the target of a cpp file rather than an entire project.
+
+GREP='grep --color=never -P'
+SOURCE_FILE=${1:?}
+
+[ -f ${SOURCE_FILE} ] || { echo "Invalid file: ${SOURCE_FILE}"; exit 1; }
+[ -f Makefile ] || { echo "Couldn't find Makefile in current directory"; exit 1; }
+
+ALL_TARGETS=$(${GREP} "^[/\w]+\.o:" <(make -qp))
+TARGET=$(${GREP} "${SOURCE_FILE}" <(echo "${ALL_TARGETS}") | head -1 | ${GREP} -o "^[^:]+")
+
+echo "${TARGET}"

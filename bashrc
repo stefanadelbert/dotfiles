@@ -2,10 +2,9 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-if [[ -d ${HOME}/.scripts ]]; then
-	PATH=${PATH}:${HOME}/.scripts
-	[[ -f ${HOME}/.scripts/init_grizzly ]] && source ${HOME}/.scripts/init_grizzly
-fi
+[ -d ${HOME}/.scripts ] && PATH=${PATH}:${HOME}/.scripts
+[ -f ${HOME}/.scripts/init_grizzly ] && source ${HOME}/.scripts/init_grizzly
+[ -d ${HOME}/.scripts/autocomplete ] && { for autocomplete_script in ${HOME}/.scripts/autocomplete/*; do source ${autocomplete_script}; done }
 
 # If ccache exists, add it to the path.
 if [[ -d /usr/lib/ccache ]]; then
@@ -17,6 +16,8 @@ case $- in
     *i*) ;;
       *) return;;
 esac
+
+export EDITOR=vim
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -128,17 +129,16 @@ if [ -d ${GIT_PROMPT_DIRECTORY} ]; then
 	GIT_PROMPT_ONLY_IN_REPO=0
 	GIT_PROMPT_THEME=Chmike
 	source ${GIT_PROMPT_DIRECTORY}/prompt-colors.sh
-	GIT_PROMPT_START="_LAST_COMMAND_INDICATOR_ ${ResetColor}${Yellow}\w${White}"
+	GIT_PROMPT_START="_LAST_COMMAND_INDICATOR_ ${ResetColor}${Yellow}\w${ResetColor}"
 	if [ ! -z ${debian_chroot} ]; then
-		GIT_PROMPT_START="${Blue}${SCHROOT_SESSION_ID}${DimBlue}[${SCHROOT_CHROOT_NAME}] ${GIT_PROMPT_START}"
+		GIT_PROMPT_START="${Blue}${SCHROOT_SESSION_ID}${Blue}[${SCHROOT_CHROOT_NAME}] ${GIT_PROMPT_START}"
 	fi
 	if hash 2>/dev/null bb; then
-		GIT_PROMPT_START="${DimGreen}ьь${ResetColor} ${GIT_PROMPT_START}"
+		GIT_PROMPT_START="${Green}ьь${ResetColor} ${GIT_PROMPT_START}"
 	else
 		GIT_PROMPT_START="${Red}ьь${ResetColor} ${GIT_PROMPT_START}"
 	fi
 	source ${GIT_PROMPT_DIRECTORY}/gitprompt.sh
 fi
 
-# I'm using a custom built vim, so need to be explicit about it here.
-export EDITOR=/usr/local/bin/vim
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

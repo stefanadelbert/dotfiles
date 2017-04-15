@@ -3,7 +3,7 @@
 # Set this to the variable to the default blackbear clone. It's used to setup BLACKBEAR_DIR if it isn't already set.
 DEFAULT_CLONE=primary
 
-export DEV_HOME=${HOME}/dev_vc
+export DEV_HOME=${HOME}/dev
 export GRIZZLY_DIR=${DEV_HOME}/grizzly
 # Set BLACKBEAR_DIR to a reasonable default, but only if it isn't already set.
 export BLACKBEAR_DIR=${BLACKBEAR_DIR:-${DEV_HOME}/blackbear/${DEFAULT_CLONE}}
@@ -12,8 +12,6 @@ export CHROOT_NAME=centos7
 
 export PATH=${GRIZZLY_DIR}:${PATH}
 export PYTHONPATH=${PYTHONPATH}:${BLACKBEAR_DIR}/build/final/debug/lib/python
-
-export BJAM_FLAGS="-j9"
 
 if ([ -d ${GRIZZLY_DIR} ] && [ -f ${GRIZZLY_DIR}/bashrc ]); then
 	source ${GRIZZLY_DIR}/bashrc;
