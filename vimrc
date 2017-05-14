@@ -26,12 +26,15 @@ color xoria256
 
 syntax on
 
+let mapleader=','
+
 set hlsearch
 set tabstop=4
 set shiftwidth=4
 set noexpandtab
 set backspace=2
 set relativenumber
+set number
 
 set ignorecase
 set smartcase
@@ -46,22 +49,44 @@ set wildmenu
 set undofile
 set undodir=~/.vim/undodir
 
+" Visually select the last pasted text.
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 " Disable the arrow keys in normal, insert and visual modes.
-"noremap <Up> <NOP>
-"noremap <Down> <NOP>
-"noremap <Left> <NOP>
-"noremap <Right> <NOP>
-"inoremap <Up> <NOP>
-"inoremap <Down> <NOP>
-"inoremap <Left> <NOP>
-"inoremap <Right> <NOP>
-"vnoremap <Up> <NOP>
-"vnoremap <Down> <NOP>
-"vnoremap <Left> <NOP>
-"vnoremap <Right> <NOP>
+noremap <Up> ddkP
+noremap <Down> ddp
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+vnoremap <Up> dkP`[V`]
+vnoremap <Down> dp`[V`]
+vnoremap <Left> <NOP>
+vnoremap <Right> <NOP>
+
+" Navigation assistance
+nmap <C-u> <C-u>zz
+nmap <C-d> <C-d>zz
+nmap <C-h> b
+nmap <C-j> }zz
+nmap <C-k> {zz
+nmap <C-l> w
+vmap <C-u> <C-u>zz
+vmap <C-d> <C-d>zz
+vmap <C-h> b
+vmap <C-j> }zz
+vmap <C-k> {zz
+
+nmap n nzz
+nmap N Nzz
+
+nmap <leader>tn :tabnew<cr>
+nmap <leader>tc :tabclose<cr>
 
 " This reduces the delay between hitting ESC and switching to normal mode
-set timeoutlen=1000 ttimeoutlen=0
+set timeoutlen=600 ttimeoutlen=0
 
 " Setup custom filetype
 autocmd BufNewFile,BufRead *.analysis set filetype=analysis
@@ -86,13 +111,12 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
-" vim-scratch settings
-let g:scratch_show_command="botright vsplit | hide buffer"
-nnoremap <F12> :ScratchOpen<CR>
-nnoremap <C-F12> :ScratchClose<CR>
-
 " Mapping for forcing a redraw.
 nnoremap <leader>r :redraw!<CR>
+
+" Save current or all buffers.
+nnoremap <leader>s :w<cr>
+nnoremap <leader>ss :wa<cr>
 
 " Quickfix mappings.
 nmap <F10> :botright copen<CR>
@@ -144,17 +168,14 @@ autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' | nnor
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " F5 builds the default set of targets
-nnoremap <F5> :wa<CR>:AsyncRun chmake<CR>
+nnoremap <leader>mb :wa<CR>:AsyncRun chmake<CR>
 " F7 runs the tests for a make project
-nnoremap <F7> :wa<CR>:AsyncRun chmake test<CR>
+nnoremap <leader>mt :wa<CR>:AsyncRun chmake test<CR>
 " F8 builds all of Blackbear
-nnoremap <F8> :wa<CR>:AsyncRun bb make<CR>
+nnoremap <leader>ma :wa<CR>:AsyncRun bb make<CR>
 " F9 builds just the target that depends on the current file.
-nnoremap <F9> :wa<CR>:AsyncRun chmake $(build_object %)<CR>
-" Mappings for insert mode
-imap <F5> <ESC><F5>
-imap <F7> <ESC><F7>
-imap <F8> <ESC><F8>
+nnoremap <leader>mo :wa<CR>:AsyncRun chmake $(build_object %)<CR>
+nnoremap <leader>ms :AsyncStop<CR>
 
 " SORTING
 " Do a unique sort on the inner paragraph

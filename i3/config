@@ -58,22 +58,21 @@ focus_follows_mouse no
 bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -opacity 90 -font Noto\ Sans\ 28 -color-window "#273238" -show run
-bindsym $mod+l exec ~/.scripts/lock
+#bindsym control+Mod1+l exec ~/.scripts/lock
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+# TODO: Need to find another binding for this.
+#bindsym $mod+h split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -114,18 +113,18 @@ bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
 
 # Switch workspaces on current output
-bindsym control+Mod1+Left workspace prev_on_output
-bindsym control+Mod1+Right workspace next_on_output
+bindsym control+Mod1+h workspace prev_on_output
+bindsym control+Mod1+l workspace next_on_output
 # Allow workspaces to be moved to different outputs
-bindsym control+$mod+Mod1+Right move workspace to output right
-bindsym control+$mod+Mod1+Left move workspace to output left
-bindsym control+$mod+Mod1+Up move workspace to output up
-bindsym control+$mod+Mod1+Down move workspace to output down
+bindsym control+$mod+Mod1+l move workspace to output right
+bindsym control+$mod+Mod1+h move workspace to output left
+bindsym control+$mod+Mod1+k move workspace to output up
+bindsym control+$mod+Mod1+j move workspace to output down
 # Switch outputs (relative)
-bindsym control+$mod+Left focus output left
-bindsym control+$mod+Right focus output right
-bindsym control+$mod+Up focus output up
-bindsym control+$mod+Down focus output down
+bindsym control+$mod+h focus output left
+bindsym control+$mod+l focus output right
+bindsym control+$mod+k focus output up
+bindsym control+$mod+j focus output down
 
 # Move windows (containers) to workspace on same output and switch to that workspace
 bindsym control+Mod1+Shift+Left move container to workspace prev_on_output; workspace prev_on_output;
@@ -205,6 +204,7 @@ bar {
 
 bar {
 	output HDMI-1
+	output HDMI-2
 	output DP-1
     status_command i3blocks -c ~/.i3/i3blocks.minimal.conf
     mode hide
